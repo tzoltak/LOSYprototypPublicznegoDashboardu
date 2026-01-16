@@ -1,0 +1,3575 @@
+[
+  {
+    "id": "000000",
+    "name": "Polska",
+    "genitive": "Polski",
+    "level": "k",
+    "parent": "",
+    "children": ["020000", "040000", "060000", "080000", "100000", "120000", "140000", "160000", "180000", "200000", "220000", "240000", "260000", "280000", "300000", "320000"],
+    "neighbours": []
+  },
+  {
+    "id": "020000",
+    "name": "Województwo dolnośląskie",
+    "genitive": "województwa dolnośląskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["020100", "020200", "020300", "020400", "020500", "020600", "020700", "020800", "020900", "021000", "021100", "021200", "021300", "021400", "021500", "021600", "021700", "021800", "021900", "022000", "022100", "022200", "022300", "022400", "022500", "022600", "026100", "026200", "026400", "026500"],
+    "neighbours": ["080000", "300000", "160000"]
+  },
+  {
+    "id": "020100",
+    "name": "Powiat bolesławiecki",
+    "genitive": "powiatu bolesławieckiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021600", "020900", "021000", "021200", "022500", "022600", "081000"]
+  },
+  {
+    "id": "020200",
+    "name": "Powiat dzierżoniowski",
+    "genitive": "powiatu dzierżoniowskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020800", "022100", "022300", "022400", "021700", "021900"]
+  },
+  {
+    "id": "020300",
+    "name": "Powiat głogowski",
+    "genitive": "powiatu głogowskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021600", "021100", "080400", "081200", "081000", "020400"]
+  },
+  {
+    "id": "020400",
+    "name": "Powiat górowski",
+    "genitive": "powiatu górowskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["302200", "301300", "021100", "022200", "081200", "022000", "020300"]
+  },
+  {
+    "id": "020500",
+    "name": "Powiat jaworski",
+    "genitive": "powiatu jaworskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020900", "022100", "022600", "021800", "021900", "020700", "020600"]
+  },
+  {
+    "id": "020600",
+    "name": "Powiat karkonoski",
+    "genitive": "powiatu karkonoskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021200", "022600", "020500", "026100", "020700"]
+  },
+  {
+    "id": "020700",
+    "name": "Powiat kamiennogórski",
+    "genitive": "powiatu kamiennogórskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["022100", "020500", "020600"]
+  },
+  {
+    "id": "020800",
+    "name": "Powiat kłodzki",
+    "genitive": "powiatu kłodzkiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["022100", "022400", "020200"]
+  },
+  {
+    "id": "020900",
+    "name": "Powiat legnicki",
+    "genitive": "powiatu legnickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021600", "026200", "021100", "022200", "022600", "021800", "020500", "020100"]
+  },
+  {
+    "id": "021000",
+    "name": "Powiat lubański",
+    "genitive": "powiatu lubańskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021200", "022500", "020100"]
+  },
+  {
+    "id": "021100",
+    "name": "Powiat lubiński",
+    "genitive": "powiatu lubińskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021600", "020900", "022200", "020300", "020400"]
+  },
+  {
+    "id": "021200",
+    "name": "Powiat lwówecki",
+    "genitive": "powiatu lwóweckiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021000", "022600", "020600", "020100"]
+  },
+  {
+    "id": "021300",
+    "name": "Powiat milicki",
+    "genitive": "powiatu milickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["302200", "301200", "021400", "301700", "022000"]
+  },
+  {
+    "id": "021400",
+    "name": "Powiat oleśnicki",
+    "genitive": "powiatu oleśnickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["300800", "021300", "160600", "021500", "301700", "301800", "022300", "022000"]
+  },
+  {
+    "id": "021500",
+    "name": "Powiat oławski",
+    "genitive": "powiatu oławskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["160600", "021400", "022300", "021700", "160100"]
+  },
+  {
+    "id": "021600",
+    "name": "Powiat polkowicki",
+    "genitive": "powiatu polkowickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020900", "021100", "081000", "020300", "020100"]
+  },
+  {
+    "id": "021700",
+    "name": "Powiat strzeliński",
+    "genitive": "powiatu strzelińskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["160700", "021500", "022300", "022400", "020200", "160100"]
+  },
+  {
+    "id": "021800",
+    "name": "Powiat średzki",
+    "genitive": "powiatu średzkiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020900", "022200", "026400", "022300", "021900", "022000", "020500"]
+  },
+  {
+    "id": "021900",
+    "name": "Powiat świdnicki",
+    "genitive": "powiatu świdnickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["026500", "022100", "022300", "021800", "020200", "020500"]
+  },
+  {
+    "id": "022000",
+    "name": "Powiat trzebnicki",
+    "genitive": "powiatu trzebnickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["302200", "021300", "021400", "022200", "026400", "022300", "021800", "020400"]
+  },
+  {
+    "id": "022100",
+    "name": "Powiat wałbrzyski",
+    "genitive": "powiatu wałbrzyskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020800", "026500", "021900", "020200", "020500", "020700"]
+  },
+  {
+    "id": "022200",
+    "name": "Powiat wołowski",
+    "genitive": "powiatu wołowskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020900", "021100", "021800", "022000", "020400"]
+  },
+  {
+    "id": "022300",
+    "name": "Powiat wrocławski",
+    "genitive": "powiatu wrocławskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021400", "021500", "026400", "021700", "021800", "021900", "022000", "020200"]
+  },
+  {
+    "id": "022400",
+    "name": "Powiat ząbkowicki",
+    "genitive": "powiatu ząbkowickiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020800", "160700", "021700", "020200"]
+  },
+  {
+    "id": "022500",
+    "name": "Powiat zgorzelecki",
+    "genitive": "powiatu zgorzeleckiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["021000", "081000", "081100", "020100"]
+  },
+  {
+    "id": "022600",
+    "name": "Powiat złotoryjski",
+    "genitive": "powiatu złotoryjskiego",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020900", "021200", "020500", "020600", "020100"]
+  },
+  {
+    "id": "026100",
+    "name": "Jelenia Góra",
+    "genitive": "Jeleniej Góry",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020600"]
+  },
+  {
+    "id": "026200",
+    "name": "Legnica",
+    "genitive": "Legnicy",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["020900"]
+  },
+  {
+    "id": "026400",
+    "name": "Wrocław",
+    "genitive": "Wrocławia",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["022300", "021800", "022000"]
+  },
+  {
+    "id": "026500",
+    "name": "Wałbrzych",
+    "genitive": "Wałbrzycha",
+    "level": "p",
+    "parent": "020000",
+    "children": [],
+    "neighbours": ["022100", "021900"]
+  },
+  {
+    "id": "040000",
+    "name": "Województwo kujawsko-pomorskie",
+    "genitive": "województwa kujawsko-pomorskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["040100", "040200", "040300", "040400", "040500", "040600", "040700", "040800", "040900", "041000", "041100", "041200", "041300", "041400", "041500", "041600", "041700", "041800", "041900", "046100", "046200", "046300", "046400"],
+    "neighbours": ["300000", "220000", "100000", "280000", "140000"]
+  },
+  {
+    "id": "040100",
+    "name": "Powiat aleksandrowski",
+    "genitive": "powiatu aleksandrowskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041100", "040800", "041800", "041500", "040700"]
+  },
+  {
+    "id": "040200",
+    "name": "Powiat brodnicki",
+    "genitive": "powiatu brodnickiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["281200", "041700", "143700", "041200", "280300", "040500", "040600"]
+  },
+  {
+    "id": "040300",
+    "name": "Powiat bydgoski",
+    "genitive": "powiatu bydgoskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041000", "041600", "041900", "041300", "041400", "041500", "040700", "046100", "040400"]
+  },
+  {
+    "id": "040400",
+    "name": "Powiat chełmiński",
+    "genitive": "powiatu chełmińskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041700", "041400", "041500", "040600", "040300"]
+  },
+  {
+    "id": "040500",
+    "name": "Powiat golubsko-dobrzyński",
+    "genitive": "powiatu golubsko-dobrzyńskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["040800", "041700", "041200", "041500", "040200"]
+  },
+  {
+    "id": "040600",
+    "name": "Powiat grudziądzki",
+    "genitive": "powiatu grudziądzkiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["220700", "281200", "041700", "041400", "046200", "280700", "040200", "040400"]
+  },
+  {
+    "id": "040700",
+    "name": "Powiat inowrocławski",
+    "genitive": "powiatu inowrocławskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041100", "301000", "040900", "041900", "041500", "040100", "040300"]
+  },
+  {
+    "id": "040800",
+    "name": "Powiat lipnowski",
+    "genitive": "powiatu lipnowskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["141900", "046400", "041800", "041200", "142700", "041500", "040500", "040100"]
+  },
+  {
+    "id": "040900",
+    "name": "Powiat mogileński",
+    "genitive": "powiatu mogileńskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["301000", "041900", "302300", "300300", "040700"]
+  },
+  {
+    "id": "041000",
+    "name": "Powiat nakielski",
+    "genitive": "powiatu nakielskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["301900", "302800", "041900", "041300", "040300"]
+  },
+  {
+    "id": "041100",
+    "name": "Powiat radziejowski",
+    "genitive": "powiatu radziejowskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["300900", "301000", "041800", "040700", "040100"]
+  },
+  {
+    "id": "041200",
+    "name": "Powiat rypiński",
+    "genitive": "powiatu rypińskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["040800", "143700", "142700", "040500", "040200"]
+  },
+  {
+    "id": "041300",
+    "name": "Powiat sępoleński",
+    "genitive": "powiatu sępoleńskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["301900", "041000", "041600", "303100", "220300", "040300", "220200"]
+  },
+  {
+    "id": "041400",
+    "name": "Powiat świecki",
+    "genitive": "powiatu świeckiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["220700", "041600", "221300", "221400", "046200", "040600", "040300", "040400"]
+  },
+  {
+    "id": "041500",
+    "name": "Powiat toruński",
+    "genitive": "powiatu toruńskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["040800", "041700", "046300", "040500", "040700", "040100", "040300", "046100", "040400"]
+  },
+  {
+    "id": "041600",
+    "name": "Powiat tucholski",
+    "genitive": "powiatu tucholskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041300", "221300", "041400", "040300", "220200"]
+  },
+  {
+    "id": "041700",
+    "name": "Powiat wąbrzeski",
+    "genitive": "powiatu wąbrzeskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041500", "040500", "040600", "040200", "040400"]
+  },
+  {
+    "id": "041800",
+    "name": "Powiat włocławski",
+    "genitive": "powiatu włocławskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["141900", "041100", "300900", "100200", "040800", "046400", "140400", "040100"]
+  },
+  {
+    "id": "041900",
+    "name": "Powiat żniński",
+    "genitive": "powiatu żnińskiego",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["040900", "041000", "302800", "300300", "040700", "040300"]
+  },
+  {
+    "id": "046100",
+    "name": "Bydgoszcz",
+    "genitive": "Bydgoszczy",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041500", "040300"]
+  },
+  {
+    "id": "046200",
+    "name": "Grudziądz",
+    "genitive": "Grudziądza",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041400", "040600"]
+  },
+  {
+    "id": "046300",
+    "name": "Toruń",
+    "genitive": "Torunia",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["041500"]
+  },
+  {
+    "id": "046400",
+    "name": "Włocławek",
+    "genitive": "Włocławka",
+    "level": "p",
+    "parent": "040000",
+    "children": [],
+    "neighbours": ["040800", "041800"]
+  },
+  {
+    "id": "060000",
+    "name": "Województwo lubelskie",
+    "genitive": "województwa lubelskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["060100", "060200", "060300", "060400", "060500", "060600", "060700", "060800", "060900", "061000", "061100", "061200", "061300", "061400", "061500", "061600", "061700", "061800", "061900", "062000", "066100", "066200", "066300", "066400"],
+    "neighbours": ["140000", "260000", "180000", "200000"]
+  },
+  {
+    "id": "060100",
+    "name": "Powiat bialski",
+    "genitive": "powiatu bialskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061500", "141000", "061100", "061300", "061900", "142600", "201000", "066100"]
+  },
+  {
+    "id": "060200",
+    "name": "Powiat biłgorajski",
+    "genitive": "powiatu biłgorajskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["181400", "060600", "180800", "180900", "060900", "181200", "062000", "061800", "060500"]
+  },
+  {
+    "id": "060300",
+    "name": "Powiat chełmski",
+    "genitive": "powiatu chełmskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060600", "061000", "061900", "062000", "061700", "060400", "066200"]
+  },
+  {
+    "id": "060400",
+    "name": "Powiat hrubieszowski",
+    "genitive": "powiatu hrubieszowskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["062000", "061800", "060300"]
+  },
+  {
+    "id": "060500",
+    "name": "Powiat janowski",
+    "genitive": "powiatu janowskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060700", "060900", "181200", "181800", "060200"]
+  },
+  {
+    "id": "060600",
+    "name": "Powiat krasnostawski",
+    "genitive": "powiatu krasnostawskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060900", "062000", "061700", "060200", "060300"]
+  },
+  {
+    "id": "060700",
+    "name": "Powiat kraśnicki",
+    "genitive": "powiatu kraśnickiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060900", "260600", "061200", "260900", "181800", "060500"]
+  },
+  {
+    "id": "060800",
+    "name": "Powiat lubartowski",
+    "genitive": "powiatu lubartowskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061400", "061500", "060900", "061000", "061100", "061300", "061600"]
+  },
+  {
+    "id": "060900",
+    "name": "Powiat lubelski",
+    "genitive": "powiatu lubelskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061400", "060600", "060700", "060800", "066300", "061000", "061200", "061700", "060500", "060200"]
+  },
+  {
+    "id": "061000",
+    "name": "Powiat łęczyński",
+    "genitive": "powiatu łęczyńskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060800", "060900", "061300", "061900", "061700", "060300"]
+  },
+  {
+    "id": "061100",
+    "name": "Powiat łukowski",
+    "genitive": "powiatu łukowskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061500", "060800", "061600", "142600", "140300", "060100"]
+  },
+  {
+    "id": "061200",
+    "name": "Powiat opolski",
+    "genitive": "powiatu opolskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061400", "060700", "140900", "060900", "260600", "143600"]
+  },
+  {
+    "id": "061300",
+    "name": "Powiat parczewski",
+    "genitive": "powiatu parczewskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061500", "060800", "061000", "061900", "060100"]
+  },
+  {
+    "id": "061400",
+    "name": "Powiat puławski",
+    "genitive": "powiatu puławskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["140700", "060800", "060900", "061200", "143600", "061600"]
+  },
+  {
+    "id": "061500",
+    "name": "Powiat radzyński",
+    "genitive": "powiatu radzyńskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060800", "061100", "061300", "060100"]
+  },
+  {
+    "id": "061600",
+    "name": "Powiat rycki",
+    "genitive": "powiatu ryckiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061400", "140700", "060800", "061100", "140300"]
+  },
+  {
+    "id": "061700",
+    "name": "Powiat świdnicki",
+    "genitive": "powiatu świdnickiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060600", "060900", "066300", "061000", "060300"]
+  },
+  {
+    "id": "061800",
+    "name": "Powiat tomaszowski",
+    "genitive": "powiatu tomaszowskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["180900", "062000", "060400", "060200"]
+  },
+  {
+    "id": "061900",
+    "name": "Powiat włodawski",
+    "genitive": "powiatu włodawskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["061000", "061300", "060100", "060300"]
+  },
+  {
+    "id": "062000",
+    "name": "Powiat zamojski",
+    "genitive": "powiatu zamojskiego",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060600", "066400", "061800", "060400", "060200", "060300"]
+  },
+  {
+    "id": "066100",
+    "name": "Biała Podlaska",
+    "genitive": "Białej Podlaskiej",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060100"]
+  },
+  {
+    "id": "066200",
+    "name": "Chełm",
+    "genitive": "Chełma",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060300"]
+  },
+  {
+    "id": "066300",
+    "name": "Lublin",
+    "genitive": "Lublina",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["060900", "061700"]
+  },
+  {
+    "id": "066400",
+    "name": "Zamość",
+    "genitive": "Zamościa",
+    "level": "p",
+    "parent": "060000",
+    "children": [],
+    "neighbours": ["062000"]
+  },
+  {
+    "id": "080000",
+    "name": "Województwo lubuskie",
+    "genitive": "województwa lubuskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["080100", "080200", "080300", "080400", "080500", "080600", "080700", "080800", "080900", "081000", "081100", "081200", "086100", "086200"],
+    "neighbours": ["320000", "020000", "300000"]
+  },
+  {
+    "id": "080100",
+    "name": "Powiat gorzowski",
+    "genitive": "powiatu gorzowskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080300", "321000", "080500", "080600", "080700", "086100"]
+  },
+  {
+    "id": "080200",
+    "name": "Powiat krośnieński",
+    "genitive": "powiatu krośnieńskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080900", "081100", "080500", "080700", "080800"]
+  },
+  {
+    "id": "080300",
+    "name": "Powiat międzyrzecki",
+    "genitive": "powiatu międzyrzeckiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["301400", "301500", "080600", "080700", "080800", "080100"]
+  },
+  {
+    "id": "080400",
+    "name": "Powiat nowosolski",
+    "genitive": "powiatu nowosolskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["302900", "081200", "086200", "080900", "081000", "020300"]
+  },
+  {
+    "id": "080500",
+    "name": "Powiat słubicki",
+    "genitive": "powiatu słubickiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080200", "080700", "080100"]
+  },
+  {
+    "id": "080600",
+    "name": "Powiat strzelecko-drezdenecki",
+    "genitive": "powiatu strzelecko-drezdeneckiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["301400", "080300", "321000", "321700", "300200", "080100", "320200"]
+  },
+  {
+    "id": "080700",
+    "name": "Powiat sulęciński",
+    "genitive": "powiatu sulęcińskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080200", "080300", "080500", "080800", "080100"]
+  },
+  {
+    "id": "080800",
+    "name": "Powiat świebodziński",
+    "genitive": "powiatu świebodzińskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080200", "080300", "301500", "080900", "080700"]
+  },
+  {
+    "id": "080900",
+    "name": "Powiat zielonogórski",
+    "genitive": "powiatu zielonogórskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080200", "080400", "301500", "302900", "086200", "081000", "081100", "080800"]
+  },
+  {
+    "id": "081000",
+    "name": "Powiat żagański",
+    "genitive": "powiatu żagańskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["021600", "080400", "022500", "080900", "081100", "020300", "020100"]
+  },
+  {
+    "id": "081100",
+    "name": "Powiat żarski",
+    "genitive": "powiatu żarskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080200", "022500", "080900", "081000"]
+  },
+  {
+    "id": "081200",
+    "name": "Powiat wschowski",
+    "genitive": "powiatu wschowskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["301300", "080400", "302900", "020300", "020400"]
+  },
+  {
+    "id": "086100",
+    "name": "Gorzów Wielkopolski",
+    "genitive": "Gorzowa Wielkopolskiego",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080100"]
+  },
+  {
+    "id": "086200",
+    "name": "Zielona Góra",
+    "genitive": "Zielonej Góry",
+    "level": "p",
+    "parent": "080000",
+    "children": [],
+    "neighbours": ["080400", "080900"]
+  },
+  {
+    "id": "100000",
+    "name": "Województwo łódzkie",
+    "genitive": "województwa łódzkiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["100100", "100200", "100300", "100400", "100500", "100600", "100700", "100800", "100900", "101000", "101100", "101200", "101300", "101400", "101500", "101600", "101700", "101800", "101900", "102000", "102100", "106100", "106200", "106300"],
+    "neighbours": ["300000", "160000", "040000", "240000", "140000", "260000"]
+  },
+  {
+    "id": "100100",
+    "name": "Powiat bełchatowski",
+    "genitive": "powiatu bełchatowskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000", "101200", "100300", "100800", "100900", "101700"]
+  },
+  {
+    "id": "100200",
+    "name": "Powiat kutnowski",
+    "genitive": "powiatu kutnowskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["300900", "100400", "100500", "041800", "140400"]
+  },
+  {
+    "id": "100300",
+    "name": "Powiat łaski",
+    "genitive": "powiatu łaskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101100", "100800", "101700", "101900", "101400", "100100"]
+  },
+  {
+    "id": "100400",
+    "name": "Powiat łęczycki",
+    "genitive": "powiatu łęczyckiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101100", "300900", "100200", "100500", "102000"]
+  },
+  {
+    "id": "100500",
+    "name": "Powiat łowicki",
+    "genitive": "powiatu łowickiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["100200", "100400", "102000", "101500", "142800", "140400", "102100"]
+  },
+  {
+    "id": "100600",
+    "name": "Powiat łódzki wschodni",
+    "genitive": "powiatu łódzki wschodniego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000", "106100", "100800", "102000", "101600", "102100"]
+  },
+  {
+    "id": "100700",
+    "name": "Powiat opoczyński",
+    "genitive": "powiatu opoczyńskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000", "142300", "101200", "260500", "101600"]
+  },
+  {
+    "id": "100800",
+    "name": "Powiat pabianicki",
+    "genitive": "powiatu pabianickiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000", "101100", "100300", "100600", "106100", "102000", "100100"]
+  },
+  {
+    "id": "100900",
+    "name": "Powiat pajęczański",
+    "genitive": "powiatu pajęczańskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101200", "240600", "101700", "240400", "100100"]
+  },
+  {
+    "id": "101000",
+    "name": "Powiat piotrkowski",
+    "genitive": "powiatu piotrkowskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["106200", "101200", "100600", "100700", "100800", "101600", "100100"]
+  },
+  {
+    "id": "101100",
+    "name": "Powiat poddębicki",
+    "genitive": "powiatu poddębickiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["300900", "100300", "100400", "100800", "302700", "101900", "102000", "101400"]
+  },
+  {
+    "id": "101200",
+    "name": "Powiat radomszczański",
+    "genitive": "powiatu radomszczańskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000", "260500", "100700", "100900", "261300", "240400", "100100"]
+  },
+  {
+    "id": "101300",
+    "name": "Powiat rawski",
+    "genitive": "powiatu rawskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["143800", "101500", "101600", "140600"]
+  },
+  {
+    "id": "101400",
+    "name": "Powiat sieradzki",
+    "genitive": "powiatu sieradzkiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101100", "100300", "301800", "302700", "101700", "101800", "101900", "300700"]
+  },
+  {
+    "id": "101500",
+    "name": "Powiat skierniewicki",
+    "genitive": "powiatu skierniewickiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101300", "100500", "143800", "106300", "142800", "101600", "102100"]
+  },
+  {
+    "id": "101600",
+    "name": "Powiat tomaszowski",
+    "genitive": "powiatu tomaszowskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000", "142300", "101300", "100600", "100700", "101500", "140600", "102100"]
+  },
+  {
+    "id": "101700",
+    "name": "Powiat wieluński",
+    "genitive": "powiatu wieluńskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["240600", "100300", "160800", "100900", "101800", "101400", "100100"]
+  },
+  {
+    "id": "101800",
+    "name": "Powiat wieruszowski",
+    "genitive": "powiatu wieruszowskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["300800", "160400", "160800", "301800", "101700", "101400"]
+  },
+  {
+    "id": "101900",
+    "name": "Powiat zduńskowolski",
+    "genitive": "powiatu zduńskowolskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101100", "100300", "101400"]
+  },
+  {
+    "id": "102000",
+    "name": "Powiat zgierski",
+    "genitive": "powiatu zgierskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101100", "100400", "100500", "100600", "106100", "100800", "102100"]
+  },
+  {
+    "id": "102100",
+    "name": "Powiat brzeziński",
+    "genitive": "powiatu brzezińskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["100500", "100600", "102000", "101500", "101600"]
+  },
+  {
+    "id": "106100",
+    "name": "Łódź",
+    "genitive": "Łodzi",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["100600", "100800", "102000"]
+  },
+  {
+    "id": "106200",
+    "name": "Piotrków Trybunalski",
+    "genitive": "Piotrkowa Trybunalskiego",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101000"]
+  },
+  {
+    "id": "106300",
+    "name": "Skierniewice",
+    "genitive": "Skierniewic",
+    "level": "p",
+    "parent": "100000",
+    "children": [],
+    "neighbours": ["101500"]
+  },
+  {
+    "id": "120000",
+    "name": "Województwo małopolskie",
+    "genitive": "województwa małopolskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["120100", "120200", "120300", "120400", "120500", "120600", "120700", "120800", "120900", "121000", "121100", "121200", "121300", "121400", "121500", "121600", "121700", "121800", "121900", "126100", "126200", "126300"],
+    "neighbours": ["240000", "260000", "180000"]
+  },
+  {
+    "id": "120100",
+    "name": "Powiat bocheński",
+    "genitive": "powiatu bocheńskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121400", "120600", "120700", "120900", "121900", "120200"]
+  },
+  {
+    "id": "120200",
+    "name": "Powiat brzeski",
+    "genitive": "powiatu brzeskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121400", "120700", "121000", "121600", "120100"]
+  },
+  {
+    "id": "120300",
+    "name": "Powiat chrzanowski",
+    "genitive": "powiatu chrzanowskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120600", "121200", "121300", "121800", "246800"]
+  },
+  {
+    "id": "120400",
+    "name": "Powiat dąbrowski",
+    "genitive": "powiatu dąbrowskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["260300", "181100", "261200", "121600", "180300", "260100"]
+  },
+  {
+    "id": "120500",
+    "name": "Powiat gorlicki",
+    "genitive": "powiatu gorlickiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121000", "121600", "180500"]
+  },
+  {
+    "id": "120600",
+    "name": "Powiat krakowski",
+    "genitive": "powiatu krakowskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121400", "126100", "120800", "120900", "121200", "121800", "121900", "120100", "120300"]
+  },
+  {
+    "id": "120700",
+    "name": "Powiat limanowski",
+    "genitive": "powiatu limanowskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120900", "121000", "121100", "120100", "120200"]
+  },
+  {
+    "id": "120800",
+    "name": "Powiat miechowski",
+    "genitive": "powiatu miechowskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["260800", "121400", "260300", "120600", "121200", "241600", "260200"]
+  },
+  {
+    "id": "120900",
+    "name": "Powiat myślenicki",
+    "genitive": "powiatu myślenickiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120600", "120700", "121100", "121800", "121900", "121500", "120100"]
+  },
+  {
+    "id": "121000",
+    "name": "Powiat nowosądecki",
+    "genitive": "powiatu nowosądeckiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120700", "121100", "126200", "121600", "120500", "120200"]
+  },
+  {
+    "id": "121100",
+    "name": "Powiat nowotarski",
+    "genitive": "powiatu nowotarskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120700", "120900", "121000", "121500", "121700"]
+  },
+  {
+    "id": "121200",
+    "name": "Powiat olkuski",
+    "genitive": "powiatu olkuskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120600", "120800", "241600", "246500", "246800", "240100", "120300"]
+  },
+  {
+    "id": "121300",
+    "name": "Powiat oświęcimski",
+    "genitive": "powiatu oświęcimskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["241000", "121800", "246800", "240200", "241400", "120300"]
+  },
+  {
+    "id": "121400",
+    "name": "Powiat proszowicki",
+    "genitive": "powiatu proszowickiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["260300", "120600", "126100", "120800", "121600", "120100", "120200"]
+  },
+  {
+    "id": "121500",
+    "name": "Powiat suski",
+    "genitive": "powiatu suskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120900", "121100", "121800", "241700"]
+  },
+  {
+    "id": "121600",
+    "name": "Powiat tarnowski",
+    "genitive": "powiatu tarnowskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121400", "260300", "121000", "126300", "120400", "180300", "120500", "180500", "120200"]
+  },
+  {
+    "id": "121700",
+    "name": "Powiat tatrzański",
+    "genitive": "powiatu tatrzańskiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121100"]
+  },
+  {
+    "id": "121800",
+    "name": "Powiat wadowicki",
+    "genitive": "powiatu wadowickiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120600", "120900", "121300", "241700", "121500", "240200", "120300"]
+  },
+  {
+    "id": "121900",
+    "name": "Powiat wielicki",
+    "genitive": "powiatu wielickiego",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["120600", "126100", "120900", "120100"]
+  },
+  {
+    "id": "126100",
+    "name": "Kraków",
+    "genitive": "Krakowa",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121400", "120600", "121900"]
+  },
+  {
+    "id": "126200",
+    "name": "Nowy Sącz",
+    "genitive": "Nowego Sącza",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121000"]
+  },
+  {
+    "id": "126300",
+    "name": "Tarnów",
+    "genitive": "Tarnowa",
+    "level": "p",
+    "parent": "120000",
+    "children": [],
+    "neighbours": ["121600"]
+  },
+  {
+    "id": "140000",
+    "name": "Województwo mazowieckie",
+    "genitive": "województwa mazowieckiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["140100", "140200", "140300", "140400", "140500", "140600", "140700", "140800", "140900", "141000", "141100", "141200", "141300", "141400", "141500", "141600", "141700", "141800", "141900", "142000", "142100", "142200", "142300", "142400", "142500", "142600", "142700", "142800", "142900", "143000", "143200", "143300", "143400", "143500", "143600", "143700", "143800", "146100", "146200", "146300", "146400", "146500"],
+    "neighbours": ["040000", "100000", "280000", "260000", "200000", "060000"]
+  },
+  {
+    "id": "140100",
+    "name": "Powiat białobrzeski",
+    "genitive": "powiatu białobrzeskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142300", "142500", "140700", "140600"]
+  },
+  {
+    "id": "140200",
+    "name": "Powiat ciechanowski",
+    "genitive": "powiatu ciechanowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142000", "142200", "142400", "141100", "141300"]
+  },
+  {
+    "id": "140300",
+    "name": "Powiat garwoliński",
+    "genitive": "powiatu garwolińskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["140700", "061100", "141200", "141700", "061600", "142600", "140600"]
+  },
+  {
+    "id": "140400",
+    "name": "Powiat gostyniński",
+    "genitive": "powiatu gostynińskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141900", "100200", "100500", "041800", "142800"]
+  },
+  {
+    "id": "140500",
+    "name": "Powiat grodziski",
+    "genitive": "powiatu grodziskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142100", "141800", "143200", "143800", "142800", "140600"]
+  },
+  {
+    "id": "140600",
+    "name": "Powiat grójecki",
+    "genitive": "powiatu grójeckiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142300", "101300", "140700", "141700", "141800", "143800", "101600", "140300", "140500", "140100"]
+  },
+  {
+    "id": "140700",
+    "name": "Powiat kozienicki",
+    "genitive": "powiatu kozienickiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["061400", "142500", "143600", "061600", "140300", "140600", "140100"]
+  },
+  {
+    "id": "140800",
+    "name": "Powiat legionowski",
+    "genitive": "powiatu legionowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142400", "141400", "146500", "143200", "143400", "143500"]
+  },
+  {
+    "id": "140900",
+    "name": "Powiat lipski",
+    "genitive": "powiatu lipskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142500", "260600", "061200", "260700", "143600", "261100"]
+  },
+  {
+    "id": "141000",
+    "name": "Powiat łosicki",
+    "genitive": "powiatu łosickiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142600", "201000", "060100"]
+  },
+  {
+    "id": "141100",
+    "name": "Powiat makowski",
+    "genitive": "powiatu makowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142200", "142400", "141500", "143500", "140200"]
+  },
+  {
+    "id": "141200",
+    "name": "Powiat miński",
+    "genitive": "powiatu mińskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141700", "146500", "143300", "143400", "142600", "140300"]
+  },
+  {
+    "id": "141300",
+    "name": "Powiat mławski",
+    "genitive": "powiatu mławskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142000", "142200", "281100", "143700", "280300", "140200"]
+  },
+  {
+    "id": "141400",
+    "name": "Powiat nowodworski",
+    "genitive": "powiatu nowodworskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142000", "142400", "140800", "143200", "142800"]
+  },
+  {
+    "id": "141500",
+    "name": "Powiat ostrołęcki",
+    "genitive": "powiatu ostrołęckiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["281600", "142200", "200600", "200700", "141100", "146100", "141600", "143500", "281700"]
+  },
+  {
+    "id": "141600",
+    "name": "Powiat ostrowski",
+    "genitive": "powiatu ostrowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["200700", "141500", "143300", "201300", "143500", "201400", "142900"]
+  },
+  {
+    "id": "141700",
+    "name": "Powiat otwocki",
+    "genitive": "powiatu otwockiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141200", "141800", "146500", "140300", "140600"]
+  },
+  {
+    "id": "141800",
+    "name": "Powiat piaseczyński",
+    "genitive": "powiatu piaseczyńskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142100", "141700", "146500", "140500", "140600"]
+  },
+  {
+    "id": "141900",
+    "name": "Powiat płocki",
+    "genitive": "powiatu płockiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["146200", "142000", "040800", "041800", "142700", "142800", "140400"]
+  },
+  {
+    "id": "142000",
+    "name": "Powiat płoński",
+    "genitive": "powiatu płońskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141900", "142400", "141300", "141400", "143700", "142700", "142800", "140200"]
+  },
+  {
+    "id": "142100",
+    "name": "Powiat pruszkowski",
+    "genitive": "powiatu pruszkowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141800", "146500", "143200", "140500"]
+  },
+  {
+    "id": "142200",
+    "name": "Powiat przasnyski",
+    "genitive": "powiatu przasnyskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141100", "141300", "281100", "141500", "281700", "140200"]
+  },
+  {
+    "id": "142300",
+    "name": "Powiat przysuski",
+    "genitive": "powiatu przysuskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142500", "260500", "100700", "143000", "101600", "140600", "140100"]
+  },
+  {
+    "id": "142400",
+    "name": "Powiat pułtuski",
+    "genitive": "powiatu pułtuskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142000", "140800", "141100", "141400", "143500", "140200"]
+  },
+  {
+    "id": "142500",
+    "name": "Powiat radomski",
+    "genitive": "powiatu radomskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142300", "146300", "140700", "140900", "143600", "261100", "143000", "140100"]
+  },
+  {
+    "id": "142600",
+    "name": "Powiat siedlecki",
+    "genitive": "powiatu siedleckiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141000", "061100", "141200", "143300", "146400", "201000", "142900", "140300", "060100"]
+  },
+  {
+    "id": "142700",
+    "name": "Powiat sierpecki",
+    "genitive": "powiatu sierpeckiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141900", "142000", "040800", "143700", "041200"]
+  },
+  {
+    "id": "142800",
+    "name": "Powiat sochaczewski",
+    "genitive": "powiatu sochaczewskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141900", "142000", "100500", "141400", "143200", "143800", "101500", "140400", "140500"]
+  },
+  {
+    "id": "142900",
+    "name": "Powiat sokołowski",
+    "genitive": "powiatu sokołowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141600", "143300", "201300", "142600", "201000"]
+  },
+  {
+    "id": "143000",
+    "name": "Powiat szydłowiecki",
+    "genitive": "powiatu szydłowieckiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142300", "142500", "260500", "261000", "261100"]
+  },
+  {
+    "id": "143200",
+    "name": "Powiat warszawski zachodni",
+    "genitive": "powiatu warszawski zachodniego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142100", "140800", "141400", "146500", "142800", "140500"]
+  },
+  {
+    "id": "143300",
+    "name": "Powiat węgrowski",
+    "genitive": "powiatu węgrowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141200", "141600", "143400", "143500", "142600", "142900"]
+  },
+  {
+    "id": "143400",
+    "name": "Powiat wołomiński",
+    "genitive": "powiatu wołomińskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["140800", "141200", "146500", "143300", "143500"]
+  },
+  {
+    "id": "143500",
+    "name": "Powiat wyszkowski",
+    "genitive": "powiatu wyszkowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142400", "140800", "141100", "141500", "141600", "143300", "143400"]
+  },
+  {
+    "id": "143600",
+    "name": "Powiat zwoleński",
+    "genitive": "powiatu zwoleńskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["061400", "142500", "140700", "140900", "061200"]
+  },
+  {
+    "id": "143700",
+    "name": "Powiat żuromiński",
+    "genitive": "powiatu żuromińskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142000", "141300", "041200", "142700", "280300", "040200"]
+  },
+  {
+    "id": "143800",
+    "name": "Powiat żyrardowski",
+    "genitive": "powiatu żyrardowskiego",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["101300", "101500", "142800", "140500", "140600"]
+  },
+  {
+    "id": "146100",
+    "name": "Ostrołęka",
+    "genitive": "Ostrołęki",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141500"]
+  },
+  {
+    "id": "146200",
+    "name": "Płock",
+    "genitive": "Płocka",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["141900"]
+  },
+  {
+    "id": "146300",
+    "name": "Radom",
+    "genitive": "Radomia",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142500"]
+  },
+  {
+    "id": "146400",
+    "name": "Siedlce",
+    "genitive": "Siedlec",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142600"]
+  },
+  {
+    "id": "146500",
+    "name": "Warszawa",
+    "genitive": "Warszawy",
+    "level": "p",
+    "parent": "140000",
+    "children": [],
+    "neighbours": ["142100", "140800", "141200", "141700", "141800", "143200", "143400"]
+  },
+  {
+    "id": "160000",
+    "name": "Województwo opolskie",
+    "genitive": "województwa opolskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["160100", "160200", "160300", "160400", "160500", "160600", "160700", "160800", "160900", "161000", "161100", "166100"],
+    "neighbours": ["020000", "300000", "240000", "100000"]
+  },
+  {
+    "id": "160100",
+    "name": "Powiat brzeski",
+    "genitive": "powiatu brzeskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["160600", "160700", "021500", "160900", "021700"]
+  },
+  {
+    "id": "160200",
+    "name": "Powiat głubczycki",
+    "genitive": "powiatu głubczyckiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["161000", "241100", "160300"]
+  },
+  {
+    "id": "160300",
+    "name": "Powiat kędzierzyńsko-kozielski",
+    "genitive": "powiatu kędzierzyńsko-kozielskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["161000", "241100", "160500", "161100", "240500", "160200"]
+  },
+  {
+    "id": "160400",
+    "name": "Powiat kluczborski",
+    "genitive": "powiatu kluczborskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["300800", "160600", "160800", "160900", "101800"]
+  },
+  {
+    "id": "160500",
+    "name": "Powiat krapkowicki",
+    "genitive": "powiatu krapkowickiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["161000", "160300", "160900", "161100"]
+  },
+  {
+    "id": "160600",
+    "name": "Powiat namysłowski",
+    "genitive": "powiatu namysłowskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["300800", "160400", "021400", "021500", "160900", "160100"]
+  },
+  {
+    "id": "160700",
+    "name": "Powiat nyski",
+    "genitive": "powiatu nyskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["161000", "160900", "022400", "021700", "160100"]
+  },
+  {
+    "id": "160800",
+    "name": "Powiat oleski",
+    "genitive": "powiatu oleskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["160400", "240600", "240700", "160900", "101700", "101800", "161100"]
+  },
+  {
+    "id": "160900",
+    "name": "Powiat opolski",
+    "genitive": "powiatu opolskiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["161000", "160400", "160500", "160600", "160700", "160800", "166100", "161100", "160100"]
+  },
+  {
+    "id": "161000",
+    "name": "Powiat prudnicki",
+    "genitive": "powiatu prudnickiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["160300", "160500", "160700", "160900", "160200"]
+  },
+  {
+    "id": "161100",
+    "name": "Powiat strzelecki",
+    "genitive": "powiatu strzeleckiego",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["160300", "160500", "240700", "160800", "160900", "241300", "240500"]
+  },
+  {
+    "id": "166100",
+    "name": "Opole",
+    "genitive": "Opola",
+    "level": "p",
+    "parent": "160000",
+    "children": [],
+    "neighbours": ["160900"]
+  },
+  {
+    "id": "180000",
+    "name": "Województwo podkarpackie",
+    "genitive": "województwa podkarpackiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["180100", "180200", "180300", "180400", "180500", "180600", "180700", "180800", "180900", "181000", "181100", "181200", "181300", "181400", "181500", "181600", "181700", "181800", "181900", "182000", "182100", "186100", "186200", "186300", "186400"],
+    "neighbours": ["120000", "260000", "060000"]
+  },
+  {
+    "id": "180100",
+    "name": "Powiat bieszczadzki",
+    "genitive": "powiatu bieszczadzkiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300", "182100", "181700"]
+  },
+  {
+    "id": "180200",
+    "name": "Powiat brzozowski",
+    "genitive": "powiatu brzozowskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300", "180700", "181600", "181700", "181900"]
+  },
+  {
+    "id": "180300",
+    "name": "Powiat dębicki",
+    "genitive": "powiatu dębickiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181500", "181100", "181900", "121600", "120400", "180500"]
+  },
+  {
+    "id": "180400",
+    "name": "Powiat jarosławski",
+    "genitive": "powiatu jarosławskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300", "181400", "180900"]
+  },
+  {
+    "id": "180500",
+    "name": "Powiat jasielski",
+    "genitive": "powiatu jasielskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["180700", "181900", "121600", "180300", "120500"]
+  },
+  {
+    "id": "180600",
+    "name": "Powiat kolbuszowski",
+    "genitive": "powiatu kolbuszowskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181500", "181100", "181200", "181600", "181800", "182000"]
+  },
+  {
+    "id": "180700",
+    "name": "Powiat krośnieński",
+    "genitive": "powiatu krośnieńskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["186100", "181700", "181900", "180500", "180200"]
+  },
+  {
+    "id": "180800",
+    "name": "Powiat leżajski",
+    "genitive": "powiatu leżajskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181400", "181000", "181200", "181600", "060200"]
+  },
+  {
+    "id": "180900",
+    "name": "Powiat lubaczowski",
+    "genitive": "powiatu lubaczowskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181400", "061800", "180400", "060200"]
+  },
+  {
+    "id": "181000",
+    "name": "Powiat łańcucki",
+    "genitive": "powiatu łańcuckiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181400", "180800", "181600"]
+  },
+  {
+    "id": "181100",
+    "name": "Powiat mielecki",
+    "genitive": "powiatu mieleckiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181500", "180600", "261200", "182000", "120400", "180300"]
+  },
+  {
+    "id": "181200",
+    "name": "Powiat niżański",
+    "genitive": "powiatu niżańskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["180600", "180800", "181600", "181800", "060500", "060200"]
+  },
+  {
+    "id": "181300",
+    "name": "Powiat przemyski",
+    "genitive": "powiatu przemyskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["186200", "181400", "181600", "181700", "180400", "180100", "180200"]
+  },
+  {
+    "id": "181400",
+    "name": "Powiat przeworski",
+    "genitive": "powiatu przeworskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300", "180800", "180900", "181000", "181600", "180400", "060200"]
+  },
+  {
+    "id": "181500",
+    "name": "Powiat ropczycko-sędziszowski",
+    "genitive": "powiatu ropczycko-sędziszowskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["180600", "181100", "181600", "181900", "180300"]
+  },
+  {
+    "id": "181600",
+    "name": "Powiat rzeszowski",
+    "genitive": "powiatu rzeszowskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300", "181400", "181500", "180600", "180800", "181000", "181200", "186300", "181900", "180200"]
+  },
+  {
+    "id": "181700",
+    "name": "Powiat sanocki",
+    "genitive": "powiatu sanockiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300", "180700", "182100", "180100", "180200"]
+  },
+  {
+    "id": "181800",
+    "name": "Powiat stalowowolski",
+    "genitive": "powiatu stalowowolskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["180600", "060700", "181200", "260900", "182000", "060500"]
+  },
+  {
+    "id": "181900",
+    "name": "Powiat strzyżowski",
+    "genitive": "powiatu strzyżowskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181500", "180700", "181600", "180300", "180500", "180200"]
+  },
+  {
+    "id": "182000",
+    "name": "Powiat tarnobrzeski",
+    "genitive": "powiatu tarnobrzeskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["180600", "181100", "260900", "181800", "261200", "186400"]
+  },
+  {
+    "id": "182100",
+    "name": "Powiat leski",
+    "genitive": "powiatu leskiego",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181700", "180100"]
+  },
+  {
+    "id": "186100",
+    "name": "Krosno",
+    "genitive": "Krosna",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["180700"]
+  },
+  {
+    "id": "186200",
+    "name": "Przemyśl",
+    "genitive": "Przemyśla",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181300"]
+  },
+  {
+    "id": "186300",
+    "name": "Rzeszów",
+    "genitive": "Rzeszowa",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["181600"]
+  },
+  {
+    "id": "186400",
+    "name": "Tarnobrzeg",
+    "genitive": "Tarnobrzegu",
+    "level": "p",
+    "parent": "180000",
+    "children": [],
+    "neighbours": ["260900", "182000"]
+  },
+  {
+    "id": "200000",
+    "name": "Województwo podlaskie",
+    "genitive": "województwa podlaskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["200100", "200200", "200300", "200400", "200500", "200600", "200700", "200800", "200900", "201000", "201100", "201200", "201300", "201400", "206100", "206200", "206300"],
+    "neighbours": ["280000", "140000", "060000"]
+  },
+  {
+    "id": "200100",
+    "name": "Powiat augustowski",
+    "genitive": "powiatu augustowskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200800", "200900", "201100", "201200", "280500", "200400"]
+  },
+  {
+    "id": "200200",
+    "name": "Powiat białostocki",
+    "genitive": "powiatu białostockiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200700", "200800", "201300", "201400", "201100", "200500", "206100", "200300"]
+  },
+  {
+    "id": "200300",
+    "name": "Powiat bielski",
+    "genitive": "powiatu bielskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["201300", "201000", "200500", "200200"]
+  },
+  {
+    "id": "200400",
+    "name": "Powiat grajewski",
+    "genitive": "powiatu grajewskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["281600", "200600", "200700", "200800", "280500", "200100"]
+  },
+  {
+    "id": "200500",
+    "name": "Powiat hajnowski",
+    "genitive": "powiatu hajnowskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["201000", "200200", "200300"]
+  },
+  {
+    "id": "200600",
+    "name": "Powiat kolneński",
+    "genitive": "powiatu kolneńskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["281600", "200700", "141500", "200400"]
+  },
+  {
+    "id": "200700",
+    "name": "Powiat łomżyński",
+    "genitive": "powiatu łomżyńskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200600", "206200", "200800", "141500", "141600", "201400", "200400", "200200"]
+  },
+  {
+    "id": "200800",
+    "name": "Powiat moniecki",
+    "genitive": "powiatu monieckiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200700", "201100", "200400", "200100", "200200"]
+  },
+  {
+    "id": "200900",
+    "name": "Powiat sejneński",
+    "genitive": "powiatu sejneńskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["201200", "200100"]
+  },
+  {
+    "id": "201000",
+    "name": "Powiat siemiatycki",
+    "genitive": "powiatu siemiatyckiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["141000", "201300", "142600", "142900", "200500", "060100", "200300"]
+  },
+  {
+    "id": "201100",
+    "name": "Powiat sokólski",
+    "genitive": "powiatu sokólskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200800", "200100", "200200"]
+  },
+  {
+    "id": "201200",
+    "name": "Powiat suwalski",
+    "genitive": "powiatu suwalskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["281300", "200900", "206300", "280500", "281800", "200100"]
+  },
+  {
+    "id": "201300",
+    "name": "Powiat wysokomazowiecki",
+    "genitive": "powiatu wysokomazowieckiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["141600", "201400", "201000", "142900", "200200", "200300"]
+  },
+  {
+    "id": "201400",
+    "name": "Powiat zambrowski",
+    "genitive": "powiatu zambrowskiego",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200700", "141600", "201300", "200200"]
+  },
+  {
+    "id": "206100",
+    "name": "Białystok",
+    "genitive": "Białegostoku",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200200"]
+  },
+  {
+    "id": "206200",
+    "name": "Łomża",
+    "genitive": "Łomży",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["200700"]
+  },
+  {
+    "id": "206300",
+    "name": "Suwałki",
+    "genitive": "Suwałk",
+    "level": "p",
+    "parent": "200000",
+    "children": [],
+    "neighbours": ["201200"]
+  },
+  {
+    "id": "220000",
+    "name": "Województwo pomorskie",
+    "genitive": "województwa pomorskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["220100", "220200", "220300", "220400", "220500", "220600", "220700", "220800", "220900", "221000", "221100", "221200", "221300", "221400", "221500", "221600", "226100", "226200", "226300", "226400"],
+    "neighbours": ["320000", "300000", "040000", "280000"]
+  },
+  {
+    "id": "220100",
+    "name": "Powiat bytowski",
+    "genitive": "powiatu bytowskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["320900", "220600", "220800", "221200", "321500", "220300", "220500", "220200"]
+  },
+  {
+    "id": "220200",
+    "name": "Powiat chojnicki",
+    "genitive": "powiatu chojnickiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220600", "041600", "041300", "221300", "220300", "220100"]
+  },
+  {
+    "id": "220300",
+    "name": "Powiat człuchowski",
+    "genitive": "powiatu człuchowskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["303100", "041300", "321500", "220100", "220200"]
+  },
+  {
+    "id": "220400",
+    "name": "Powiat gdański",
+    "genitive": "powiatu gdańskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220600", "220900", "221000", "221300", "221400", "226100", "220500"]
+  },
+  {
+    "id": "220500",
+    "name": "Powiat kartuski",
+    "genitive": "powiatu kartuskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220600", "220800", "221500", "226100", "220400", "226200", "220100"]
+  },
+  {
+    "id": "220600",
+    "name": "Powiat kościerski",
+    "genitive": "powiatu kościerskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221300", "220400", "220500", "220100", "220200"]
+  },
+  {
+    "id": "220700",
+    "name": "Powiat kwidzyński",
+    "genitive": "powiatu kwidzyńskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221600", "041400", "221400", "040600", "280700"]
+  },
+  {
+    "id": "220800",
+    "name": "Powiat lęborski",
+    "genitive": "powiatu lęborskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221500", "221200", "220500", "220100"]
+  },
+  {
+    "id": "220900",
+    "name": "Powiat malborski",
+    "genitive": "powiatu malborskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221000", "221600", "221400", "280400", "220400"]
+  },
+  {
+    "id": "221000",
+    "name": "Powiat nowodworski",
+    "genitive": "powiatu nowodworskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220900", "280400", "226100", "220400", "280200"]
+  },
+  {
+    "id": "221100",
+    "name": "Powiat pucki",
+    "genitive": "powiatu puckiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221500", "226200"]
+  },
+  {
+    "id": "221200",
+    "name": "Powiat słupski",
+    "genitive": "powiatu słupskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["320900", "220800", "321300", "226300", "220100"]
+  },
+  {
+    "id": "221300",
+    "name": "Powiat starogardzki",
+    "genitive": "powiatu starogardzkiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220600", "041600", "041400", "221400", "220400", "220200"]
+  },
+  {
+    "id": "221400",
+    "name": "Powiat tczewski",
+    "genitive": "powiatu tczewskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220700", "220900", "221300", "221600", "041400", "220400"]
+  },
+  {
+    "id": "221500",
+    "name": "Powiat wejherowski",
+    "genitive": "powiatu wejherowskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221100", "220800", "226200", "220500"]
+  },
+  {
+    "id": "221600",
+    "name": "Powiat sztumski",
+    "genitive": "powiatu sztumskiego",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["220700", "220900", "281500", "221400", "280400", "280700"]
+  },
+  {
+    "id": "226100",
+    "name": "Gdańsk",
+    "genitive": "Gdańska",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221000", "226400", "220400", "226200", "220500"]
+  },
+  {
+    "id": "226200",
+    "name": "Gdynia",
+    "genitive": "Gdyni",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221100", "221500", "226400", "226100", "220500"]
+  },
+  {
+    "id": "226300",
+    "name": "Słupsk",
+    "genitive": "Słupska",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["221200"]
+  },
+  {
+    "id": "226400",
+    "name": "Sopot",
+    "genitive": "Sopotu",
+    "level": "p",
+    "parent": "220000",
+    "children": [],
+    "neighbours": ["226100", "226200"]
+  },
+  {
+    "id": "240000",
+    "name": "Województwo śląskie",
+    "genitive": "województwa śląskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["240100", "240200", "240300", "240400", "240500", "240600", "240700", "240800", "240900", "241000", "241100", "241200", "241300", "241400", "241500", "241600", "241700", "246100", "246200", "246300", "246400", "246500", "246600", "246700", "246800", "246900", "247000", "247100", "247200", "247300", "247400", "247500", "247600", "247700", "247800", "247900"],
+    "neighbours": ["160000", "100000", "120000", "260000"]
+  },
+  {
+    "id": "240100",
+    "name": "Powiat będziński",
+    "genitive": "powiatu będzińskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247100", "240900", "121200", "241600", "247400", "247500", "241300", "246500", "246800", "246900"]
+  },
+  {
+    "id": "240200",
+    "name": "Powiat bielski",
+    "genitive": "powiatu bielskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "121300", "121800", "241700", "246100", "240300"]
+  },
+  {
+    "id": "240300",
+    "name": "Powiat cieszyński",
+    "genitive": "powiatu cieszyńskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "241700", "246700", "240200", "246100"]
+  },
+  {
+    "id": "240400",
+    "name": "Powiat częstochowski",
+    "genitive": "powiatu częstochowskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["101200", "240600", "240700", "240900", "100900", "261300", "241600", "246400"]
+  },
+  {
+    "id": "240500",
+    "name": "Powiat gliwicki",
+    "genitive": "powiatu gliwickiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241100", "247200", "241200", "247300", "160300", "240800", "247800", "161100", "241300", "246600"]
+  },
+  {
+    "id": "240600",
+    "name": "Powiat kłobucki",
+    "genitive": "powiatu kłobuckiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240700", "160800", "100900", "101700", "246400", "240400"]
+  },
+  {
+    "id": "240700",
+    "name": "Powiat lubliniecki",
+    "genitive": "powiatu lublinieckiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240600", "240900", "160800", "161100", "241300", "240400"]
+  },
+  {
+    "id": "240800",
+    "name": "Powiat mikołowski",
+    "genitive": "powiatu mikołowskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "247200", "241200", "247700", "247900", "240500", "246900"]
+  },
+  {
+    "id": "240900",
+    "name": "Powiat myszkowski",
+    "genitive": "powiatu myszkowskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240700", "241600", "241300", "240400", "240100"]
+  },
+  {
+    "id": "241000",
+    "name": "Powiat pszczyński",
+    "genitive": "powiatu pszczyńskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240800", "121300", "247700", "247900", "246700", "240200", "241400", "240300"]
+  },
+  {
+    "id": "241100",
+    "name": "Powiat raciborski",
+    "genitive": "powiatu raciborskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241200", "247300", "160300", "241500", "240500", "160200"]
+  },
+  {
+    "id": "241200",
+    "name": "Powiat rybnicki",
+    "genitive": "powiatu rybnickiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241100", "247300", "240800", "241500", "247900", "240500", "246700"]
+  },
+  {
+    "id": "241300",
+    "name": "Powiat tarnogórski",
+    "genitive": "powiatu tarnogórskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247100", "240700", "240900", "247800", "161100", "246600", "240500", "240100", "246200"]
+  },
+  {
+    "id": "241400",
+    "name": "Powiat bieruńsko-lędziński",
+    "genitive": "powiatu bieruńsko-lędzińskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "247000", "121300", "247700", "246800", "246900"]
+  },
+  {
+    "id": "241500",
+    "name": "Powiat wodzisławski",
+    "genitive": "powiatu wodzisławskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241100", "241200", "247300", "246700"]
+  },
+  {
+    "id": "241600",
+    "name": "Powiat zawierciański",
+    "genitive": "powiatu zawierciańskiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["120800", "240900", "121200", "261300", "240400", "246500", "260200", "240100"]
+  },
+  {
+    "id": "241700",
+    "name": "Powiat żywiecki",
+    "genitive": "powiatu żywieckiego",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["121800", "121500", "240200", "240300"]
+  },
+  {
+    "id": "246100",
+    "name": "Bielsko-Biała",
+    "genitive": "Bielsko-Białej",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240200", "240300"]
+  },
+  {
+    "id": "246200",
+    "name": "Bytom",
+    "genitive": "Bytomia",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247100", "247200", "247800", "247600", "241300", "246300"]
+  },
+  {
+    "id": "246300",
+    "name": "Chorzów",
+    "genitive": "Chorzowa",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247100", "247200", "247400", "247600", "246900", "246200"]
+  },
+  {
+    "id": "246400",
+    "name": "Częstochowa",
+    "genitive": "Częstochowy",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240600", "240400"]
+  },
+  {
+    "id": "246500",
+    "name": "Dąbrowa Górnicza",
+    "genitive": "Dąbroqy Górniczej",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["121200", "241600", "247500", "240100"]
+  },
+  {
+    "id": "246600",
+    "name": "Gliwice",
+    "genitive": "Gliwic",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247800", "241300", "240500"]
+  },
+  {
+    "id": "246700",
+    "name": "Jastrzębie-Zdrój",
+    "genitive": "Jastrzębia-Zdroju",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "241200", "241500", "247900", "240300"]
+  },
+  {
+    "id": "246800",
+    "name": "Jaworzno",
+    "genitive": "Jaworzna",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247000", "121200", "121300", "247500", "240100", "241400", "120300"]
+  },
+  {
+    "id": "246900",
+    "name": "Katowice",
+    "genitive": "Katowic",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247200", "240800", "247000", "247700", "247400", "247500", "240100", "241400", "246300"]
+  },
+  {
+    "id": "247000",
+    "name": "Mysłowice",
+    "genitive": "Mysłowic",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247500", "246800", "246900", "241400"]
+  },
+  {
+    "id": "247100",
+    "name": "Piekary Śląskie",
+    "genitive": "Piekar Śląskich",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247400", "241300", "240100", "246200", "246300"]
+  },
+  {
+    "id": "247200",
+    "name": "Ruda Śląska",
+    "genitive": "Rudy Śląskiej",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["240800", "247800", "247600", "240500", "246900", "246200", "246300"]
+  },
+  {
+    "id": "247300",
+    "name": "Rybnik",
+    "genitive": "Rybnika",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241100", "241200", "241500", "247900", "240500"]
+  },
+  {
+    "id": "247400",
+    "name": "Siemianowice Śląskie",
+    "genitive": "Siemianowic Śląskich",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247100", "246900", "240100", "246300"]
+  },
+  {
+    "id": "247500",
+    "name": "Sosnowiec",
+    "genitive": "Sosnowca",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247000", "246500", "246800", "246900", "240100"]
+  },
+  {
+    "id": "247600",
+    "name": "Świętochłowice",
+    "genitive": "Świętochłowic",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247200", "246200", "246300"]
+  },
+  {
+    "id": "247700",
+    "name": "Tychy",
+    "genitive": "Tych",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "240800", "246900", "241400"]
+  },
+  {
+    "id": "247800",
+    "name": "Zabrze",
+    "genitive": "Zabrza",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["247200", "241300", "246600", "240500", "246200"]
+  },
+  {
+    "id": "247900",
+    "name": "Żory",
+    "genitive": "Żorów",
+    "level": "p",
+    "parent": "240000",
+    "children": [],
+    "neighbours": ["241000", "241200", "247300", "240800", "246700"]
+  },
+  {
+    "id": "260000",
+    "name": "Województwo świętokrzyskie",
+    "genitive": "województwa świętokrzyskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["260100", "260200", "260300", "260400", "260500", "260600", "260700", "260800", "260900", "261000", "261100", "261200", "261300", "266100"],
+    "neighbours": ["240000", "100000", "120000", "140000", "180000", "060000"]
+  },
+  {
+    "id": "260100",
+    "name": "Powiat buski",
+    "genitive": "powiatu buskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260800", "260300", "260400", "261200", "120400"]
+  },
+  {
+    "id": "260200",
+    "name": "Powiat jędrzejowski",
+    "genitive": "powiatu jędrzejowskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260800", "260400", "120800", "261300", "241600"]
+  },
+  {
+    "id": "260300",
+    "name": "Powiat kazimierski",
+    "genitive": "powiatu kazimierskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260800", "121400", "120800", "121600", "120400", "260100"]
+  },
+  {
+    "id": "260400",
+    "name": "Powiat kielecki",
+    "genitive": "powiatu kieleckiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260800", "266100", "260500", "260600", "260700", "261300", "261000", "261100", "261200", "260200", "260100"]
+  },
+  {
+    "id": "260500",
+    "name": "Powiat konecki",
+    "genitive": "powiatu koneckiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["142300", "101200", "260400", "100700", "261300", "261000", "143000"]
+  },
+  {
+    "id": "260600",
+    "name": "Powiat opatowski",
+    "genitive": "powiatu opatowskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260400", "060700", "140900", "061200", "260700", "260900", "261200"]
+  },
+  {
+    "id": "260700",
+    "name": "Powiat ostrowiecki",
+    "genitive": "powiatu ostrowieckiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260400", "140900", "260600", "261100"]
+  },
+  {
+    "id": "260800",
+    "name": "Powiat pińczowski",
+    "genitive": "powiatu pińczowskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260300", "260400", "120800", "260200", "260100"]
+  },
+  {
+    "id": "260900",
+    "name": "Powiat sandomierski",
+    "genitive": "powiatu sandomierskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["060700", "260600", "181800", "261200", "186400", "182000"]
+  },
+  {
+    "id": "261000",
+    "name": "Powiat skarżyski",
+    "genitive": "powiatu skarżyskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260400", "260500", "261100", "143000"]
+  },
+  {
+    "id": "261100",
+    "name": "Powiat starachowicki",
+    "genitive": "powiatu starachowickiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["142500", "260400", "140900", "260700", "261000", "143000"]
+  },
+  {
+    "id": "261200",
+    "name": "Powiat staszowski",
+    "genitive": "powiatu staszowskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260400", "181100", "260600", "260900", "182000", "120400", "260100"]
+  },
+  {
+    "id": "261300",
+    "name": "Powiat włoszczowski",
+    "genitive": "powiatu włoszczowskiego",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["101200", "260400", "260500", "241600", "240400", "260200"]
+  },
+  {
+    "id": "266100",
+    "name": "Kielce",
+    "genitive": "Kielc",
+    "level": "p",
+    "parent": "260000",
+    "children": [],
+    "neighbours": ["260400"]
+  },
+  {
+    "id": "280000",
+    "name": "Województwo warmińsko-mazurskie",
+    "genitive": "województwa warmińsko-mazurskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["280100", "280200", "280300", "280400", "280500", "280600", "280700", "280800", "280900", "281000", "281100", "281200", "281300", "281400", "281500", "281600", "281700", "281800", "281900", "286100", "286200"],
+    "neighbours": ["220000", "040000", "140000", "200000"]
+  },
+  {
+    "id": "280100",
+    "name": "Powiat bartoszycki",
+    "genitive": "powiatu bartoszyckiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280800", "280900", "281400", "280200"]
+  },
+  {
+    "id": "280200",
+    "name": "Powiat braniewski",
+    "genitive": "powiatu braniewskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280900", "221000", "280400", "280100"]
+  },
+  {
+    "id": "280300",
+    "name": "Powiat działdowski",
+    "genitive": "powiatu działdowskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["141300", "281100", "281200", "281500", "143700", "280700", "040200"]
+  },
+  {
+    "id": "280400",
+    "name": "Powiat elbląski",
+    "genitive": "powiatu elbląskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280900", "220900", "221000", "281500", "221600", "286100", "280200"]
+  },
+  {
+    "id": "280500",
+    "name": "Powiat ełcki",
+    "genitive": "powiatu ełckiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281600", "281300", "201200", "280600", "200400", "200100"]
+  },
+  {
+    "id": "280600",
+    "name": "Powiat giżycki",
+    "genitive": "powiatu giżyckiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281600", "280800", "281000", "281300", "281900", "280500", "281800"]
+  },
+  {
+    "id": "280700",
+    "name": "Powiat iławski",
+    "genitive": "powiatu iławskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["220700", "281200", "281500", "221600", "280300", "040600"]
+  },
+  {
+    "id": "280800",
+    "name": "Powiat kętrzyński",
+    "genitive": "powiatu kętrzyńskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281000", "281400", "281900", "280600", "280100"]
+  },
+  {
+    "id": "280900",
+    "name": "Powiat lidzbarski",
+    "genitive": "powiatu lidzbarskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281400", "281500", "280400", "280100", "280200"]
+  },
+  {
+    "id": "281000",
+    "name": "Powiat mrągowski",
+    "genitive": "powiatu mrągowskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281600", "280800", "281400", "281700", "280600"]
+  },
+  {
+    "id": "281100",
+    "name": "Powiat nidzicki",
+    "genitive": "powiatu nidzickiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["142200", "141300", "281400", "281500", "281700", "280300"]
+  },
+  {
+    "id": "281200",
+    "name": "Powiat nowomiejski",
+    "genitive": "powiatu nowomiejskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280300", "040600", "280700", "040200"]
+  },
+  {
+    "id": "281300",
+    "name": "Powiat olecki",
+    "genitive": "powiatu oleckiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["201200", "280500", "280600", "281800"]
+  },
+  {
+    "id": "281400",
+    "name": "Powiat olsztyński",
+    "genitive": "powiatu olsztyńskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280800", "280900", "281000", "281100", "286200", "281500", "281700", "280100"]
+  },
+  {
+    "id": "281500",
+    "name": "Powiat ostródzki",
+    "genitive": "powiatu ostródzkiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280900", "281100", "281400", "221600", "280300", "280400", "280700"]
+  },
+  {
+    "id": "281600",
+    "name": "Powiat piski",
+    "genitive": "powiatu piskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["200600", "281000", "141500", "281700", "280500", "280600", "200400"]
+  },
+  {
+    "id": "281700",
+    "name": "Powiat szczycieński",
+    "genitive": "powiatu szczycieńskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281600", "142200", "281000", "281100", "281400", "141500"]
+  },
+  {
+    "id": "281800",
+    "name": "Powiat gołdapski",
+    "genitive": "powiatu gołdapskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281300", "281900", "201200", "280600"]
+  },
+  {
+    "id": "281900",
+    "name": "Powiat węgorzewski",
+    "genitive": "powiatu węgorzewskiego",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280800", "280600", "281800"]
+  },
+  {
+    "id": "286100",
+    "name": "Elbląg",
+    "genitive": "Elbląga",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["280400"]
+  },
+  {
+    "id": "286200",
+    "name": "Olsztyn",
+    "genitive": "Olsztyna",
+    "level": "p",
+    "parent": "280000",
+    "children": [],
+    "neighbours": ["281400"]
+  },
+  {
+    "id": "300000",
+    "name": "Województwo wielkopolskie",
+    "genitive": "województwa wielkopolskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["300100", "300200", "300300", "300400", "300500", "300600", "300700", "300800", "300900", "301000", "301100", "301200", "301300", "301400", "301500", "301600", "301700", "301800", "301900", "302000", "302100", "302200", "302300", "302400", "302500", "302600", "302700", "302800", "302900", "303000", "303100", "306100", "306200", "306300", "306400"],
+    "neighbours": ["320000", "080000", "020000", "220000", "160000", "040000", "100000"]
+  },
+  {
+    "id": "300100",
+    "name": "Powiat chodzieski",
+    "genitive": "powiatu chodzieskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301900", "301600", "302800", "300200"]
+  },
+  {
+    "id": "300200",
+    "name": "Powiat czarnkowsko-trzcianecki",
+    "genitive": "powiatu czarnkowsko-trzcianeckiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301900", "301400", "301600", "321700", "080600", "302400", "300100"]
+  },
+  {
+    "id": "300300",
+    "name": "Powiat gnieźnieński",
+    "genitive": "powiatu gnieźnieńskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "040900", "302800", "303000", "041900", "302300"]
+  },
+  {
+    "id": "300400",
+    "name": "Powiat gostyński",
+    "genitive": "powiatu gostyńskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302200", "301100", "301200", "301300", "302600", "300600"]
+  },
+  {
+    "id": "300500",
+    "name": "Powiat grodziski",
+    "genitive": "powiatu grodziskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "301100", "301500", "302900"]
+  },
+  {
+    "id": "300600",
+    "name": "Powiat jarociński",
+    "genitive": "powiatu jarocińskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "301200", "303000", "302500", "302600", "300400"]
+  },
+  {
+    "id": "300700",
+    "name": "Powiat kaliski",
+    "genitive": "powiatu kaliskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "301000", "301700", "301800", "302700", "101400", "306100"]
+  },
+  {
+    "id": "300800",
+    "name": "Powiat kępiński",
+    "genitive": "powiatu kępińskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["160400", "160600", "021400", "301800", "101800"]
+  },
+  {
+    "id": "300900",
+    "name": "Powiat kolski",
+    "genitive": "powiatu kolskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["101100", "041100", "301000", "100200", "100400", "302700", "041800"]
+  },
+  {
+    "id": "301000",
+    "name": "Powiat koniński",
+    "genitive": "powiatu konińskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "041100", "300900", "306200", "040900", "302700", "302300", "040700", "300700"]
+  },
+  {
+    "id": "301100",
+    "name": "Powiat kościański",
+    "genitive": "powiatu kościańskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "301300", "302900", "302600", "300400", "300500"]
+  },
+  {
+    "id": "301200",
+    "name": "Powiat krotoszyński",
+    "genitive": "powiatu krotoszyńskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "302200", "021300", "301700", "300400", "300600"]
+  },
+  {
+    "id": "301300",
+    "name": "Powiat leszczyński",
+    "genitive": "powiatu leszczyńskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302200", "301100", "306300", "302900", "081200", "300400", "020400"]
+  },
+  {
+    "id": "301400",
+    "name": "Powiat międzychodzki",
+    "genitive": "powiatu międzychodzkiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["080300", "301500", "080600", "302400", "300200"]
+  },
+  {
+    "id": "301500",
+    "name": "Powiat nowotomyski",
+    "genitive": "powiatu nowotomyskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "301400", "080300", "302900", "080900", "302400", "080800", "300500"]
+  },
+  {
+    "id": "301600",
+    "name": "Powiat obornicki",
+    "genitive": "powiatu obornickiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "302800", "302400", "300200", "300100"]
+  },
+  {
+    "id": "301700",
+    "name": "Powiat ostrowski",
+    "genitive": "powiatu ostrowskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "301200", "021300", "021400", "301800", "300700", "306100"]
+  },
+  {
+    "id": "301800",
+    "name": "Powiat ostrzeszowski",
+    "genitive": "powiatu ostrzeszowskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["300800", "021400", "301700", "101800", "101400", "300700"]
+  },
+  {
+    "id": "301900",
+    "name": "Powiat pilski",
+    "genitive": "powiatu pilskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["041000", "321700", "302800", "303100", "041300", "300200", "300100"]
+  },
+  {
+    "id": "302000",
+    "name": "Powiat pleszewski",
+    "genitive": "powiatu pleszewskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301000", "301200", "301700", "303000", "302300", "300600", "300700", "306100"]
+  },
+  {
+    "id": "302100",
+    "name": "Powiat poznański",
+    "genitive": "powiatu poznańskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["306400", "301100", "301500", "301600", "302800", "303000", "302400", "302500", "302600", "300300", "300500"]
+  },
+  {
+    "id": "302200",
+    "name": "Powiat rawicki",
+    "genitive": "powiatu rawickiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301200", "301300", "021300", "022000", "300400", "020400"]
+  },
+  {
+    "id": "302300",
+    "name": "Powiat słupecki",
+    "genitive": "powiatu słupeckiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "301000", "040900", "303000", "300300"]
+  },
+  {
+    "id": "302400",
+    "name": "Powiat szamotulski",
+    "genitive": "powiatu szamotulskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "301400", "301500", "301600", "300200"]
+  },
+  {
+    "id": "302500",
+    "name": "Powiat średzki",
+    "genitive": "powiatu średzkiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "303000", "302600", "300600"]
+  },
+  {
+    "id": "302600",
+    "name": "Powiat śremski",
+    "genitive": "powiatu śremskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100", "301100", "302500", "300400", "300600"]
+  },
+  {
+    "id": "302700",
+    "name": "Powiat turecki",
+    "genitive": "powiatu tureckiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["101100", "300900", "301000", "101400", "300700"]
+  },
+  {
+    "id": "302800",
+    "name": "Powiat wągrowiecki",
+    "genitive": "powiatu wągrowieckiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301900", "302100", "041000", "301600", "041900", "300300", "300100"]
+  },
+  {
+    "id": "302900",
+    "name": "Powiat wolsztyński",
+    "genitive": "powiatu wolsztyńskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301100", "301300", "080400", "301500", "081200", "080900", "300500"]
+  },
+  {
+    "id": "303000",
+    "name": "Powiat wrzesiński",
+    "genitive": "powiatu wrzesińskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "302100", "302300", "302500", "300300", "300600"]
+  },
+  {
+    "id": "303100",
+    "name": "Powiat złotowski",
+    "genitive": "powiatu złotowskiego",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301900", "321700", "041300", "321500", "220300", "320300"]
+  },
+  {
+    "id": "306100",
+    "name": "Kalisz",
+    "genitive": "Kalisza",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302000", "301700", "300700"]
+  },
+  {
+    "id": "306200",
+    "name": "Konin",
+    "genitive": "Konina",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301000"]
+  },
+  {
+    "id": "306300",
+    "name": "Leszno",
+    "genitive": "Leszna",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["301300"]
+  },
+  {
+    "id": "306400",
+    "name": "Poznań",
+    "genitive": "Poznania",
+    "level": "p",
+    "parent": "300000",
+    "children": [],
+    "neighbours": ["302100"]
+  },
+  {
+    "id": "320000",
+    "name": "Województwo zachodniopomorskie",
+    "genitive": "województwa zachodniopomorskiego",
+    "level": "w",
+    "parent": "000000",
+    "children": ["320100", "320200", "320300", "320400", "320500", "320600", "320700", "320800", "320900", "321000", "321100", "321200", "321300", "321400", "321500", "321600", "321700", "321800", "326100", "326200", "326300"],
+    "neighbours": ["080000", "300000", "220000"]
+  },
+  {
+    "id": "320100",
+    "name": "Powiat białogardzki",
+    "genitive": "powiatu białogardzkiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320800", "320900", "321500", "321600"]
+  },
+  {
+    "id": "320200",
+    "name": "Powiat choszczeński",
+    "genitive": "powiatu choszczeńskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321000", "321700", "321400", "080600", "320300"]
+  },
+  {
+    "id": "320300",
+    "name": "Powiat drawski",
+    "genitive": "powiatu drawskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321800", "321700", "303100", "321400", "321500", "321600", "320200"]
+  },
+  {
+    "id": "320400",
+    "name": "Powiat goleniowski",
+    "genitive": "powiatu goleniowskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321100", "321800", "321400", "326200", "326300", "320500", "320700"]
+  },
+  {
+    "id": "320500",
+    "name": "Powiat gryficki",
+    "genitive": "powiatu gryfickiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320800", "321800", "320400", "320700"]
+  },
+  {
+    "id": "320600",
+    "name": "Powiat gryfiński",
+    "genitive": "powiatu gryfińskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321100", "321200", "321000", "321400", "326200"]
+  },
+  {
+    "id": "320700",
+    "name": "Powiat kamieński",
+    "genitive": "powiatu kamieńskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["326300", "320400", "320500"]
+  },
+  {
+    "id": "320800",
+    "name": "Powiat kołobrzeski",
+    "genitive": "powiatu kołobrzeskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320900", "321800", "321600", "320500", "320100"]
+  },
+  {
+    "id": "320900",
+    "name": "Powiat koszaliński",
+    "genitive": "powiatu koszalińskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320800", "326100", "321300", "221200", "321500", "320100", "220100"]
+  },
+  {
+    "id": "321000",
+    "name": "Powiat myśliborski",
+    "genitive": "powiatu myśliborskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321200", "321400", "080600", "080100", "320600", "320200"]
+  },
+  {
+    "id": "321100",
+    "name": "Powiat policki",
+    "genitive": "powiatu polickiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["326200", "326300", "320400", "320600"]
+  },
+  {
+    "id": "321200",
+    "name": "Powiat pyrzycki",
+    "genitive": "powiatu pyrzyckiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321000", "321400", "320600"]
+  },
+  {
+    "id": "321300",
+    "name": "Powiat sławieński",
+    "genitive": "powiatu sławieńskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320900", "221200"]
+  },
+  {
+    "id": "321400",
+    "name": "Powiat stargardzki",
+    "genitive": "powiatu stargardzkiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321200", "321800", "321000", "326200", "320300", "320400", "320600", "320200"]
+  },
+  {
+    "id": "321500",
+    "name": "Powiat szczecinecki",
+    "genitive": "powiatu szczecineckiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320900", "303100", "321600", "220300", "320300", "320100", "220100"]
+  },
+  {
+    "id": "321600",
+    "name": "Powiat świdwiński",
+    "genitive": "powiatu świdwińskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320800", "321800", "321500", "320300", "320100"]
+  },
+  {
+    "id": "321700",
+    "name": "Powiat wałecki",
+    "genitive": "powiatu wałeckiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["301900", "303100", "080600", "300200", "320300", "320200"]
+  },
+  {
+    "id": "321800",
+    "name": "Powiat łobeski",
+    "genitive": "powiatu łobeskiego",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320800", "321400", "321600", "320300", "320400", "320500"]
+  },
+  {
+    "id": "326100",
+    "name": "Koszalin",
+    "genitive": "Koszalina",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["320900"]
+  },
+  {
+    "id": "326200",
+    "name": "Szczecin",
+    "genitive": "Szczecina",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321100", "321400", "320400", "320600"]
+  },
+  {
+    "id": "326300",
+    "name": "Świnoujście",
+    "genitive": "Świnoujścia",
+    "level": "p",
+    "parent": "320000",
+    "children": [],
+    "neighbours": ["321100", "320400", "320700"]
+  }
+]

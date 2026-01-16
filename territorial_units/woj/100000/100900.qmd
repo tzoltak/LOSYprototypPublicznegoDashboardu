@@ -1,0 +1,203 @@
+---
+title: "Powiat pajęczański"
+format: html
+---
+
+::: {.panel-tabset}
+
+## Ogólna sytuacja edukacyjno-zawodowa
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof status_typ_szk = Inputs.radio(
+  d3.group(status, (d) => d.typ_szk),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    value: "Technikum",
+    label: "Typ szkoły:"
+  }
+)
+viewof status_rok_abs = Inputs.radio(
+  d3.group(status, (d) => d.rok_abs),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Edycja monitoringu:",
+    value: 2023
+  }
+)
+viewof status_szk_specjalna = Inputs.radio(
+  d3.group(status, (d) => d.szk_specjalna),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem"
+  }
+)
+viewof status_plec = Inputs.radio(
+  d3.group(status, (d) => d.plec),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Płeć:",
+    value: "Ogółem"
+  }
+)
+viewof status_nazwa_zaw = Inputs.select(
+  d3.group(d3.group(status, d => d.typ_szk).get(status_typ_szk),
+           (d) => d.nazwa_zaw),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Zawód:",
+    value: "Ogółem",
+    sort: true
+  }
+)
+viewof status_czas = Inputs.radio(
+  d3.group(status, (d) => d.czas),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Miesiąc od ukończenia szkoły:",
+    value: "6"
+  }
+)
+```
+
+
+```{ojs}
+//| echo: false
+status = await FileAttachment("../../../data/100900-status.json").json()
+```
+
+```{ojs}
+//| echo: false
+statusG = d3.group(status, d => d.typ_szk, d => d.rok_abs,
+                       d => d.szk_specjalna, d => d.plec, d => d.nazwa_zaw,
+                       d => d.czas)
+statusF = statusG
+  .get(status_typ_szk)
+  .get(status_rok_abs)
+  .get(status_szk_specjalna)
+  .get(status_plec)
+  .get(status_nazwa_zaw)
+  .get(status_czas)[0].wartosc.w
+```
+
+```{ojs}
+//| echo: false
+Inputs.table(statusF)
+```
+
+## Bezrobocie
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof bezrobocie_typ_szk = Inputs.radio(
+  d3.group(bezrobocie, (d) => d.typ_szk),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    value: "Technikum",
+    label: "Typ szkoły:"
+  }
+)
+viewof bezrobocie_rok_abs = Inputs.radio(
+  d3.group(bezrobocie, (d) => d.rok_abs),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Edycja monitoringu:",
+    value: 2023
+  }
+)
+viewof bezrobocie_szk_specjalna = Inputs.radio(
+  d3.group(bezrobocie, (d) => d.szk_specjalna),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem"
+  }
+)
+viewof bezrobocie_plec = Inputs.radio(
+  d3.group(bezrobocie, (d) => d.plec),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Płeć:",
+    value: "Ogółem"
+  }
+)
+viewof bezrobocie_nazwa_zaw = Inputs.select(
+  d3.group(d3.group(bezrobocie, d => d.typ_szk).get(bezrobocie_typ_szk),
+           (d) => d.nazwa_zaw),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Zawód:",
+    value: "Ogółem",
+    sort: true
+  }
+)
+viewof bezrobocie_czas = Inputs.radio(
+  d3.group(bezrobocie, (d) => d.czas),
+  { valueof: ([name, value]) => name,
+    format: ([name, value]) => name,
+    label: "Miesiąc od ukończenia szkoły:",
+    value: "6"
+  }
+)
+```
+
+
+```{ojs}
+//| echo: false
+bezrobocie = await FileAttachment("../../../data/100900-bezrobocie.json").json()
+```
+
+```{ojs}
+//| echo: false
+bezrobocieG = d3.group(bezrobocie, d => d.typ_szk, d => d.rok_abs,
+                       d => d.szk_specjalna, d => d.plec, d => d.nazwa_zaw,
+                       d => d.czas)
+bezrobocieF = bezrobocieG
+  .get(bezrobocie_typ_szk)
+  .get(bezrobocie_rok_abs)
+  .get(bezrobocie_szk_specjalna)
+  .get(bezrobocie_plec)
+  .get(bezrobocie_nazwa_zaw)
+  .get(bezrobocie_czas)[0].wartosc.w
+```
+
+```{ojs}
+//| echo: false
+Inputs.table(bezrobocieF)
+```
+
+## Wynagrodzenia z umów o pracę
+
+```{r}
+"tu będzie wykres wynagrodzeń"
+```
+
+## Świadectwo dojrzałości
+
+```{r}
+"tu będzie wykres zdawalności matury"
+```
+
+## Dyplom zawodowy
+
+```{r}
+"tu będzie wykres uzyskiwalności dyplomów"
+```
+
+## Kontynuacja nauki
+
+```{r}
+"tu będzie wykres z formami kontynuacji"
+```
+
+## Dyscyplina studiów
+
+```{r}
+"tu będzie tabela z rozkładem dyscyplin"
+```
+
+:::
+

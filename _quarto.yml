@@ -1,0 +1,43 @@
+project:
+  type: website
+  render:
+    - "index.qmd"
+    - "about.qmd"
+    - "territorial_units"
+    - "data"
+execute:
+  freeze: auto
+
+website:
+  title: "Prototyp ogólnodostępnego dashboardu ![Logotypy FERS i IBE-PIB](/resources/Belka-FERS-IBE-PIB.png){height=49}"
+  description: "Monitoring karier absolwentów szkół ponadpodstawowych - wyniki z edycji 2021-2025"
+  favicon: "resources/monitoring_favicon.png"
+  bread-crumbs: false
+  reader-mode: false
+  navbar:
+    search: false
+    pinned: true
+    logo: "resources/LOGO_Monitoring_Karier.png"
+    logo-alt: "Logo monitoringu karier"
+  sidebar:
+    style: "docked"
+    pinned: true
+    search: false
+  cookie-consent:
+    type: express
+    style: simple
+    language: pl-PL
+  page-footer: "tu może być jakaś stopka"
+
+format:
+  html:
+    lang: pl
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+    page-layout: full
+
+metadata-files:
+  - _sidebar_contents.yml
