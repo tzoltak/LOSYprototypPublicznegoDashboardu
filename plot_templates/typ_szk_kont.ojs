@@ -1,0 +1,49 @@
+```{ojs}
+//| echo: false
+{
+  if (typ_szk_kontC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 20 + 120*typ_szk_kontF.length),
+      width: 800,
+      marginRight: 80,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(typ_szk_kontC,
+                  {x: "value", y: "label", fy: "rok_abs",
+                   fill: (v) => pallets.typ_szk_kont[v.label],
+                   sort: {y: null}}),
+        Plot.textX(typ_szk_kontC,
+                   {x: "value", y: "label", fy: "rok_abs",
+                    dx: 30,
+                    fill: (v) => palletsFg.typ_szk_kont[v.label],
+                    text: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                   fontSize: 16,
+                   sort: {y: null}}),
+        Plot.axisX([0, 1],
+                   {label: null,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v),
+                    marginBottom: 0}),
+        Plot.axisFy({label: "Rok ukończenia szkoły",
+                     anchor: "left",
+                     marginLeft: 70+ 7*Math.max(...typ_szk_kontC.map( (v) => v.label.length)),
+                     dx: -7*Math.max(...typ_szk_kontC.map( (v) => v.label.length)),
+                     tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                     lineWidth: 20,
+                     fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: null,
+                    anchor: "left",
+                    lineWidth: 20,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(typ_szk_kontC,
+                 Plot.pointerY({x: "value", y: "label", fy: "rok_abs", anchor: "left",
+                                title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}}))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```

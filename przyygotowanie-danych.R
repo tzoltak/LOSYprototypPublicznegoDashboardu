@@ -22,11 +22,20 @@ for (rok in 2021L:2025L) {
     filter(rok_abs == (rok - 2L)) |>
     mutate(plec = factor(plec, c("K", "M"), c("Kobiety", "Mężczyźni")),
            szk_specjalna = factor(szk_specjalna,
-                                  c(FALSE, TRUE), c("Nie", "Tak")))
+                                  c(FALSE, TRUE), c("Nie", "Tak")),
+           matura_zdana = factor(matura_zdana, c(1, 0),
+                                 c("Uzyskanie świadectwa dojrzałości",
+                                   "Brak świadectwa dojrzałości")),
+           typ_szk_kont6 = typ_szk_kont6[, colnames(typ_szk_kont6) != "KUZ"],
+           typ_szk_kont18 = typ_szk_kont18[, colnames(typ_szk_kont18) != "KUZ"])
   p3 <- p3 |>
     filter(mies_od_ukoncz %in% miesOdUkoncz) |>
     semi_join(p4,
-              by = c("id_abs", "rok_abs"))
+              by = c("id_abs", "rok_abs")) |>
+    mutate(bezrobocie = factor(bezrobocie  %in% 1L,
+                               c(TRUE, FALSE),
+                               c("Zarejestrowany jako bezrobotny",
+                                 "Brak statusu bezrobotnego")))
   pol <- oblicz_wskazniki_pd_jst(p4, p3, "Polska",
                                  zmGrupujace = zmPrzeciecia,
                                  zmWskaznikiP4 = zmWskazniki$p4,
@@ -90,8 +99,19 @@ library(LOSYwskazniki)
 load("wszystkie-dane.RData")
 
 pol <- pol |>
+  filter(sapply(wartosc, \(x) attributes(x)$lAbs != 0))
+pol <- pol |>
+  mutate(wartosc =
+           lapply(wartosc,
+                  function(x) {
+                    if (length(x) > 1 | any(names(x) != "średnia")) {
+                      x = x / attributes(x)$lAbs
+                    }
+                    return(x)
+                  })) |>
   select(-c("wskaznik", "obszar", "kod_zaw")) |>
-  przygotuj_wskazniki_pd_toJSON() |>
+  przygotuj_wskazniki_pd_toJSON(
+    komunikatCenzura = "W danych było mniej niż {lAbs} absolwentów pasujących do podanych kryteriów lub ukończyli oni mniej niż {lSzk} różne szkoły, w związku z czym wyniki nie mogą zostać pokazane.") |>
   split(pol$wskaznik) |>
   lapply(jsonlite::toJSON,
          dataframe = "rows", factor = "string", na = "null", pretty = FALSE)
@@ -100,8 +120,19 @@ for (i in seq_along(pol)) {
 }
 
 woj <- woj |>
+  filter(sapply(wartosc, \(x) attributes(x)$lAbs != 0))
+woj <- woj |>
+  mutate(wartosc =
+           lapply(wartosc,
+                  function(x) {
+                    if (length(x) > 1 | any(names(x) != "średnia")) {
+                      x = x / attributes(x)$lAbs
+                    }
+                    return(x)
+                  })) |>
   select(-c("wskaznik", "teryt_woj_szk", "nazwa_woj_szk", "kod_zaw")) |>
-  przygotuj_wskazniki_pd_toJSON() |>
+  przygotuj_wskazniki_pd_toJSON(
+    komunikatCenzura = "W danych było mniej niż {lAbs} absolwentów pasujących do podanych kryteriów lub ukończyli oni mniej niż {lSzk} różne szkoły, w związku z czym wyniki nie mogą zostać pokazane.") |>
   split(list(woj = sub("^ ", "0", format(10000*woj$teryt_woj_szk)),
              wskaznik = woj$wskaznik), sep = "-") |>
   lapply(jsonlite::toJSON,
@@ -111,8 +142,19 @@ for (i in seq_along(woj)) {
 }
 
 pow <- pow |>
+  filter(sapply(wartosc, \(x) attributes(x)$lAbs != 0))
+pow <- pow |>
+  mutate(wartosc =
+           lapply(wartosc,
+                  function(x) {
+                    if (length(x) > 1 | any(names(x) != "średnia")) {
+                      x = x / attributes(x)$lAbs
+                    }
+                    return(x)
+                  })) |>
   select(-c("wskaznik", "teryt_pow_szk", "nazwa_pow_szk", "kod_zaw")) |>
-  przygotuj_wskazniki_pd_toJSON() |>
+  przygotuj_wskazniki_pd_toJSON(
+    komunikatCenzura = "W danych było mniej niż {lAbs} absolwentów pasujących do podanych kryteriów lub ukończyli oni mniej niż {lSzk} różne szkoły, w związku z czym wyniki nie mogą zostać pokazane.") |>
   split(list(pow = sub("^ ", "0", format(100*pow$teryt_pow_szk)),
              wskaznik = pow$wskaznik), sep = "-") |>
   lapply(jsonlite::toJSON,

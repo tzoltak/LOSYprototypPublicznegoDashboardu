@@ -1,0 +1,1730 @@
+---
+title: "Województwo wielkopolskie"
+format: html
+---
+
+```{ojs}
+//| echo: false
+import { aq, op } from '@uwdata/arquero'
+import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '../../resources/constants.js'
+import { set_diff, sort_overall_first, sort_numeric, download_csv, sequence } from '../../resources/functions.js'
+```
+
+**Przejdź do sąsiednich:**
+
+[województwa dolnośląskiego](../000000/020000.qmd), [województwa kujawsko-pomorskiego](../000000/040000.qmd), [województwa lubuskiego](../000000/080000.qmd), [województwa łódzkiego](../000000/100000.qmd), [województwa opolskiego](../000000/160000.qmd), [województwa pomorskiego](../000000/220000.qmd), [województwa zachodniopomorskiego](../000000/320000.qmd)
+
+---
+
+::: {.panel-tabset}
+
+## Ogólna sytuacja edukacyjno-zawodowa
+
+Ogólna sytuacja edukacyjno-zawodowa.
+
+Osoby zarejestrowane jako bezrobotne, które jednocześnie się uczą klasyfikowane są jako kontynujący naukę.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof status_typ_szk = Inputs.radio(
+  new Set(status
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof status_rok_abs = Inputs.checkbox(
+  new Set(status
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(status.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof status_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          status
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof status_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          status
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof status_nazwa_zaw = Inputs.select(
+  new Set(status
+          .filter( (g) => status_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+viewof status_czas = Inputs.radio(
+  new Set(status
+          .map( (g) => g.czas )),
+  {
+    label: "Miesiąc od ukończenia szkoły:",
+    value: d3.min(status.map( (g) => g.czas )),
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_numeric
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+status = await FileAttachment("../../data/300000-status.json").json()
+```
+
+```{ojs}
+//| echo: false
+statusF = status
+  .filter( (g) => status_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => status_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => status_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => status_plec.includes(g.plec) )
+  .filter( (g) => status_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => status_czas.includes(g.czas) )
+statusC = [].concat(
+  ...statusF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+status_censored = statusF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+status_missing = Array.from(set_diff(
+  set_diff(
+    new Set(status_rok_abs),
+    new Set(statusC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(status_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (status_censored.length > 0 || status_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${status_censored.concat(status_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (statusC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 30 + 50*statusF.length),
+      width: 800,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(statusC,
+                  {x: "value", y: "rok_abs",
+                   fill: (v) => pallets.status[v.label],
+                   sort: {y: null}}),
+        Plot.textX(statusC,
+                   Plot.stackX({x: "value", y: "rok_abs",
+                                fill: (v) => palletsFg.status[v.label],
+                                text: (v) => v.value < 0.04 ? "" : Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}})),
+        Plot.axisX({label: null,
+                    tickSpacing: 60,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', maximumFractionDigits: 0 }).format(v),
+                    marginBottom: 30,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: "Rok ukończenia szkoły",
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                    lineWidth: 20, marginLeft: 60,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(statusC, // tip jako ostatni, żeby przesłaniał wszystko inne (w szczególności osie)
+                 Plot.stackX(
+                   Plot.pointer({x: "value", y: "rok_abs",
+                                 title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                 fontSize: 16,
+                                 sort: {y: null}})))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+// legenda w formie oddzielnego wykresu - akurat legendy są w OJS niedopracowane i w szczególności nie współpracują z takim elastycznym mapowaniem kolorów, w formie, w jakiej je wykorzystuję
+{
+  if (statusC.length > 0) {
+    return Plot.plot({
+      height: 150,
+      width: 800,
+      marginLeft: 60, marginTop: 0, marginBottom: 0,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(statusC,
+                  {x: [0], y: "label",
+                   fill: (d) => pallets.status[d.label],
+                   sort: {y: null}}),
+        Plot.axisX({label: null, tickSize: 0, fontSize: 0}),
+        Plot.axisY({label: null,
+                    anchor: "right", marginRight: 715, tickSize: 0,
+                    fontSize: 16})
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+viewof status_tabela_wynikow = Inputs.toggle(
+  {
+    label: "Pokaż tabelę wartości",
+    value: false,
+    disabled: statusC.length == 0
+  }
+)
+{
+  if (status_tabela_wynikow && statusC.length > 0) {
+    return aq.from(statusC)
+             .select(aq.names(Object.keys(statusC[0])
+                              .map( (c) => (labels.status[c]) )))
+             .view({
+               format: {
+                 "Odsetek absolwentów (kończących szkołę w danym roku)":
+                   (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)
+               }
+             })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+statusD = [].concat(
+  ...statusF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  czas: g.czas,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(statusD)
+                   .rename(aq.names(Object.keys(statusD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.status,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8,9], {before: 0})
+                   .toCSV(),
+                   "status.csv"),
+    disabled: statusC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[status_typ_szk]}%7D", target="_blank">${status_typ_szk}</a>`
+```
+
+## Bezrobocie
+
+Odsetek osób zarejestrowanych jako bezrobotne w urzędach pracy w Polsce wśród absolwentów.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof bezrobocie_typ_szk = Inputs.radio(
+  new Set(bezrobocie
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof bezrobocie_rok_abs = Inputs.checkbox(
+  new Set(bezrobocie
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(bezrobocie.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof bezrobocie_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          bezrobocie
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof bezrobocie_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          bezrobocie
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof bezrobocie_nazwa_zaw = Inputs.select(
+  new Set(bezrobocie
+          .filter( (g) => bezrobocie_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+viewof bezrobocie_czas = Inputs.radio(
+  new Set(bezrobocie
+          .map( (g) => g.czas )),
+  {
+    label: "Miesiąc od ukończenia szkoły:",
+    value: d3.min(bezrobocie.map( (g) => g.czas )),
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_numeric
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+bezrobocie = await FileAttachment("../../data/300000-bezrobocie.json").json()
+```
+
+```{ojs}
+//| echo: false
+bezrobocieF = bezrobocie
+  .filter( (g) => bezrobocie_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => bezrobocie_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => bezrobocie_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => bezrobocie_plec.includes(g.plec) )
+  .filter( (g) => bezrobocie_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => bezrobocie_czas.includes(g.czas) )
+bezrobocieC = [].concat(
+  ...bezrobocieF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+bezrobocie_censored = bezrobocieF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+bezrobocie_missing = Array.from(set_diff(
+  set_diff(
+    new Set(bezrobocie_rok_abs),
+    new Set(bezrobocieC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(bezrobocie_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (bezrobocie_censored.length > 0 || bezrobocie_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${bezrobocie_censored.concat(bezrobocie_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (bezrobocieC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 30 + 50*bezrobocieF.length),
+      width: 800,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(bezrobocieC,
+                  {x: "value", y: "rok_abs",
+                   fill: (v) => pallets.bezrobocie[v.label],
+                   sort: {y: null}}),
+        Plot.textX(bezrobocieC,
+                   Plot.stackX({x: "value", y: "rok_abs",
+                                fill: (v) => palletsFg.bezrobocie[v.label],
+                                text: (v) => v.value < 0.04 ? "" : Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}})),
+        Plot.axisX({label: null,
+                    tickSpacing: 60,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', maximumFractionDigits: 0 }).format(v),
+                    marginBottom: 30,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: "Rok ukończenia szkoły",
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                    lineWidth: 20, marginLeft: 60,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(bezrobocieC, // tip jako ostatni, żeby przesłaniał wszystko inne (w szczególności osie)
+                 Plot.stackX(
+                   Plot.pointer({x: "value", y: "rok_abs",
+                                 title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                 fontSize: 16,
+                                 sort: {y: null}})))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+// legenda w formie oddzielnego wykresu - akurat legendy są w OJS niedopracowane i w szczególności nie współpracują z takim elastycznym mapowaniem kolorów, w formie, w jakiej je wykorzystuję
+{
+  if (bezrobocieC.length > 0) {
+    return Plot.plot({
+      height: 60,
+      width: 800,
+      marginLeft: 60, marginTop: 0, marginBottom: 0,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(bezrobocieC,
+                  {x: [0], y: "label",
+                   fill: (d) => pallets.bezrobocie[d.label],
+                   sort: {y: null}}),
+        Plot.axisX({label: null, tickSize: 0, fontSize: 0}),
+        Plot.axisY({label: null,
+                    anchor: "right", marginRight: 715, tickSize: 0,
+                    fontSize: 16})
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+viewof bezrobocie_tabela_wynikow = Inputs.toggle(
+  {
+    label: "Pokaż tabelę wartości",
+    value: false,
+    disabled: bezrobocieC.length == 0
+  }
+)
+{
+  if (bezrobocie_tabela_wynikow && bezrobocieC.length > 0) {
+    return aq.from(bezrobocieC)
+             .select(aq.names(Object.keys(bezrobocieC[0])
+                              .map( (c) => (labels.bezrobocie[c]) )))
+             .view({
+               format: {
+                 "Odsetek absolwentów (kończących szkołę w danym roku)":
+                   (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)
+               }
+             })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+bezrobocieD = [].concat(
+  ...bezrobocieF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  czas: g.czas,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(bezrobocieD)
+                   .rename(aq.names(Object.keys(bezrobocieD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.bezrobocie,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8,9], {before: 0})
+                   .toCSV(),
+                   "bezrobocie.csv"),
+    disabled: bezrobocieC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[bezrobocie_typ_szk]}%7D", target="_blank">${bezrobocie_typ_szk}</a>`
+```
+
+## Wynagrodzenia z umów o pracę
+
+Średnie miesięczne wynagrodzenia brutto z umów o pracę od stycznia do grudnia roku następującego po roku ukończenia szkoły, obliczane na podstawie danych ZUS.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof sr_wynagr_typ_szk = Inputs.radio(
+  new Set(sr_wynagr
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof sr_wynagr_rok_abs = Inputs.checkbox(
+  new Set(sr_wynagr
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(sr_wynagr.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof sr_wynagr_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          sr_wynagr
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof sr_wynagr_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          sr_wynagr
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof sr_wynagr_nazwa_zaw = Inputs.select(
+  new Set(sr_wynagr
+          .filter( (g) => sr_wynagr_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+sr_wynagr = await FileAttachment("../../data/300000-sr_wynagr.json").json()
+```
+
+```{ojs}
+//| echo: false
+sr_wynagrF = sr_wynagr
+  .filter( (g) => sr_wynagr_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => sr_wynagr_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => sr_wynagr_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => sr_wynagr_plec.includes(g.plec) )
+  .filter( (g) => sr_wynagr_nazwa_zaw.includes(g.nazwa_zaw) )
+sr_wynagrC = [].concat(
+  ...sr_wynagrF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+sr_wynagr_censored = sr_wynagrF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+sr_wynagr_missing = Array.from(set_diff(
+  set_diff(
+    new Set(sr_wynagr_rok_abs),
+    new Set(sr_wynagrC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(sr_wynagr_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (sr_wynagr_censored.length > 0 || sr_wynagr_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${sr_wynagr_censored.concat(sr_wynagr_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (sr_wynagrC.length > 0) {
+    return Plot.plot({
+      height: Math.max(180, 50 + 50*sr_wynagrF.length),
+      width: 800,
+      marginRight: 100,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(sr_wynagrC,
+                  {x: "value", y: "rok_abs",
+                   fill: (v) => pallets.sr_wynagr[v.label],
+                   sort: {y: null}}),
+        Plot.textX(sr_wynagrC,
+                   {x: "value", y: "rok_abs", dx: 40,
+                    fill: (v) => palletsFg.sr_wynagr[v.label],
+                    text: (v) => Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'PLN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(v.value),
+                    fontSize: 16,
+                    sort: {y: null}}),
+        Plot.axisX(sequence(0, 7000, 1000),
+                   {label: "Średnie wynagrodzenie miesięczne z umów o pracę",
+                    tickSpacing: 80,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'PLN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(v),
+                    marginBottom: 50,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: "Rok ukończenia szkoły",
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                    lineWidth: 20, marginLeft: 60,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(sr_wynagrC, // tip jako ostatni, żeby przesłaniał wszystko inne (w szczególności osie)
+                 Plot.pointerY({x: "value", y: "rok_abs", anchor: "right",
+                                title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'PLN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}}))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+viewof sr_wynagr_tabela_wynikow = Inputs.toggle(
+  {
+    label: "Pokaż tabelę wartości",
+    value: false,
+    disabled: sr_wynagrC.length == 0
+  }
+)
+{
+  if (sr_wynagr_tabela_wynikow && sr_wynagrC.length > 0) {
+    return aq.from(sr_wynagrC)
+             .select(aq.names(Object.keys(sr_wynagrC[0])
+                              .map( (c) => (labels.sr_wynagr[c]) )))
+             .view({
+               format: {
+                 "Średnie wynagrodzenie miesięczne z umowy o pracę":
+                   (v) => Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'PLN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(v)
+               }
+             })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+sr_wynagrD = [].concat(
+  ...sr_wynagrF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(sr_wynagrD)
+                   .rename(aq.names(Object.keys(sr_wynagrD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.sr_wynagr,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8], {before: 0})
+                   .toCSV(),
+                   "sr_wynagr.csv"),
+    disabled: sr_wynagrC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[sr_wynagr_typ_szk]}%7D", target="_blank">${sr_wynagr_typ_szk}</a>`
+```
+
+## Świadectwo dojrzałości
+
+Odsetek uzyskujących świadectwo dojrzałości (maturalne) wśród absolwentów szkół pozwalających na przystąpienie do matury.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof matura_zdana_typ_szk = Inputs.radio(
+  new Set(matura_zdana
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof matura_zdana_rok_abs = Inputs.checkbox(
+  new Set(matura_zdana
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(matura_zdana.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof matura_zdana_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          matura_zdana
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof matura_zdana_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          matura_zdana
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof matura_zdana_nazwa_zaw = Inputs.select(
+  new Set(matura_zdana
+          .filter( (g) => matura_zdana_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+matura_zdana = await FileAttachment("../../data/300000-matura_zdana.json").json()
+```
+
+```{ojs}
+//| echo: false
+matura_zdanaF = matura_zdana
+  .filter( (g) => matura_zdana_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => matura_zdana_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => matura_zdana_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => matura_zdana_plec.includes(g.plec) )
+  .filter( (g) => matura_zdana_nazwa_zaw.includes(g.nazwa_zaw) )
+matura_zdanaC = [].concat(
+  ...matura_zdanaF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+matura_zdana_censored = matura_zdanaF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+matura_zdana_missing = Array.from(set_diff(
+  set_diff(
+    new Set(matura_zdana_rok_abs),
+    new Set(matura_zdanaC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(matura_zdana_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (matura_zdana_censored.length > 0 || matura_zdana_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${matura_zdana_censored.concat(matura_zdana_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (matura_zdanaC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 30 + 50*matura_zdanaF.length),
+      width: 800,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(matura_zdanaC,
+                  {x: "value", y: "rok_abs",
+                   fill: (v) => pallets.matura_zdana[v.label],
+                   sort: {y: null}}),
+        Plot.textX(matura_zdanaC,
+                   Plot.stackX({x: "value", y: "rok_abs",
+                                fill: (v) => palletsFg.matura_zdana[v.label],
+                                text: (v) => v.value < 0.04 ? "" : Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}})),
+        Plot.axisX({label: null,
+                    tickSpacing: 60,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', maximumFractionDigits: 0 }).format(v),
+                    marginBottom: 30,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: "Rok ukończenia szkoły",
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                    lineWidth: 20, marginLeft: 60,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(matura_zdanaC, // tip jako ostatni, żeby przesłaniał wszystko inne (w szczególności osie)
+                 Plot.stackX(
+                   Plot.pointer({x: "value", y: "rok_abs",
+                                 title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                 fontSize: 16,
+                                 sort: {y: null}})))
+        ]
+    })
+  } else {
+    return html``
+  }
+}// legenda w formie oddzielnego wykresu - akurat legendy są w OJS niedopracowane i w szczególności nie współpracują z takim elastycznym mapowaniem kolorów, w formie, w jakiej je wykorzystuję
+{
+  if (matura_zdanaC.length > 0) {
+    return Plot.plot({
+      height: 60,
+      width: 800,
+      marginLeft: 60, marginTop: 0, marginBottom: 0,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(matura_zdanaC,
+                  {x: [0], y: "label",
+                   fill: (d) => pallets.matura_zdana[d.label],
+                   sort: {y: null}}),
+        Plot.axisX({label: null, tickSize: 0, fontSize: 0}),
+        Plot.axisY({label: null,
+                    anchor: "right", marginRight: 715, tickSize: 0,
+                    fontSize: 16})
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+viewof matura_zdana_tabela_wynikow = Inputs.toggle(
+  {
+    label: "Pokaż tabelę wartości",
+    value: false,
+    disabled: matura_zdanaC.length == 0
+  }
+)
+{
+  if (matura_zdana_tabela_wynikow && matura_zdanaC.length > 0) {
+    return aq.from(matura_zdanaC)
+             .select(aq.names(Object.keys(matura_zdanaC[0])
+                              .map( (c) => (labels.matura_zdana[c]) )))
+             .view({
+               format: {
+                 "Odsetek absolwentów (kończących szkołę w danym roku)":
+                   (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)
+               }
+             })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+matura_zdanaD = [].concat(
+  ...matura_zdanaF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(matura_zdanaD)
+                   .rename(aq.names(Object.keys(matura_zdanaD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.matura_zdana,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8], {before: 0})
+                   .toCSV(),
+                   "matura_zdana.csv"),
+    disabled: matura_zdanaC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[matura_zdana_typ_szk]}%7D", target="_blank">${matura_zdana_typ_szk}</a>`
+```
+
+## Dyplom zawodowy
+
+Odsetek uzyskujących dyplomy, certyfikaty lub świadectwa poświadczające umiejętności zawodowe wśród absolwentów szkół prowadzących kształcenie zawodowe.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof dyplom_zaw_typ_szk = Inputs.radio(
+  new Set(dyplom_zaw
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof dyplom_zaw_rok_abs = Inputs.checkbox(
+  new Set(dyplom_zaw
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(dyplom_zaw.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof dyplom_zaw_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          dyplom_zaw
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof dyplom_zaw_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          dyplom_zaw
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof dyplom_zaw_nazwa_zaw = Inputs.select(
+  new Set(dyplom_zaw
+          .filter( (g) => dyplom_zaw_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+dyplom_zaw = await FileAttachment("../../data/300000-dyplom_zaw.json").json()
+```
+
+```{ojs}
+//| echo: false
+dyplom_zawF = dyplom_zaw
+  .filter( (g) => dyplom_zaw_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => dyplom_zaw_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => dyplom_zaw_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => dyplom_zaw_plec.includes(g.plec) )
+  .filter( (g) => dyplom_zaw_nazwa_zaw.includes(g.nazwa_zaw) )
+dyplom_zawC = [].concat(
+  ...dyplom_zawF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+dyplom_zaw_censored = dyplom_zawF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+dyplom_zaw_missing = Array.from(set_diff(
+  set_diff(
+    new Set(dyplom_zaw_rok_abs),
+    new Set(dyplom_zawC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(dyplom_zaw_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (dyplom_zaw_censored.length > 0 || dyplom_zaw_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${dyplom_zaw_censored.concat(dyplom_zaw_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (dyplom_zawC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 30 + 50*dyplom_zawF.length),
+      width: 800,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(dyplom_zawC,
+                  {x: "value", y: "rok_abs",
+                   fill: (v) => pallets.dyplom_zaw[v.label],
+                   sort: {y: null}}),
+        Plot.textX(dyplom_zawC,
+                   Plot.stackX({x: "value", y: "rok_abs",
+                                fill: (v) => palletsFg.dyplom_zaw[v.label],
+                                text: (v) => v.value < 0.04 ? "" : Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}})),
+        Plot.axisX({label: null,
+                    tickSpacing: 60,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', maximumFractionDigits: 0 }).format(v),
+                    marginBottom: 30,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: "Rok ukończenia szkoły",
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                    lineWidth: 20, marginLeft: 60,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(dyplom_zawC, // tip jako ostatni, żeby przesłaniał wszystko inne (w szczególności osie)
+                 Plot.stackX(
+                   Plot.pointer({x: "value", y: "rok_abs",
+                                 title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                 fontSize: 16,
+                                 sort: {y: null}})))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+// legenda w formie oddzielnego wykresu - akurat legendy są w OJS niedopracowane i w szczególności nie współpracują z takim elastycznym mapowaniem kolorów, w formie, w jakiej je wykorzystuję
+{
+  if (dyplom_zawC.length > 0) {
+    return Plot.plot({
+      height: 120,
+      width: 800,
+      marginLeft: 60, marginTop: 0, marginBottom: 0,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(dyplom_zawC,
+                  {x: [0], y: "label",
+                   fill: (d) => pallets.dyplom_zaw[d.label],
+                   sort: {y: null}}),
+        Plot.axisX({label: null, tickSize: 0, fontSize: 0}),
+        Plot.axisY({label: null,
+                    anchor: "right", marginRight: 715, tickSize: 0,
+                    fontSize: 16})
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+viewof dyplom_zaw_tabela_wynikow = Inputs.toggle(
+  {
+    label: "Pokaż tabelę wartości",
+    value: false,
+    disabled: dyplom_zawC.length == 0
+  }
+)
+{
+  if (dyplom_zaw_tabela_wynikow && dyplom_zawC.length > 0) {
+    return aq.from(dyplom_zawC)
+             .select(aq.names(Object.keys(dyplom_zawC[0])
+                              .map( (c) => (labels.dyplom_zaw[c]) )))
+             .view({
+               format: {
+                 "Odsetek absolwentów (kończących szkołę w danym roku)":
+                   (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)
+               }
+             })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+dyplom_zawD = [].concat(
+  ...dyplom_zawF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(dyplom_zawD)
+                   .rename(aq.names(Object.keys(dyplom_zawD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.dyplom_zaw,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8], {before: 0})
+                   .toCSV(),
+                   "dyplom_zaw.csv"),
+    disabled: dyplom_zawC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[dyplom_zaw_typ_szk]}%7D", target="_blank">${dyplom_zaw_typ_szk}</a>`
+```
+
+## Kontynuacja nauki
+
+Odsetek absolwentów kontynuujących naukę w podanych formach (typach szkół).
+
+Możliwe (choć rzadkie) są sytuacje, kiedy ten sam absolwent kontynuował naukę w tym samym czasie w więcej niż jednej formie.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof typ_szk_kont_typ_szk = Inputs.radio(
+  new Set(typ_szk_kont
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof typ_szk_kont_rok_abs = Inputs.checkbox(
+  new Set(typ_szk_kont
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(typ_szk_kont.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof typ_szk_kont_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          typ_szk_kont
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof typ_szk_kont_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          typ_szk_kont
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof typ_szk_kont_nazwa_zaw = Inputs.select(
+  new Set(typ_szk_kont
+          .filter( (g) => typ_szk_kont_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+viewof typ_szk_kont_czas = Inputs.radio(
+  new Set(typ_szk_kont
+          .map( (g) => g.czas )),
+  {
+    label: "Miesiąc od ukończenia szkoły:",
+    value: d3.min(typ_szk_kont.map( (g) => g.czas )),
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_numeric
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+typ_szk_kont = await FileAttachment("../../data/300000-typ_szk_kont.json").json()
+```
+
+```{ojs}
+//| echo: false
+typ_szk_kontF = typ_szk_kont
+  .filter( (g) => typ_szk_kont_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => typ_szk_kont_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => typ_szk_kont_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => typ_szk_kont_plec.includes(g.plec) )
+  .filter( (g) => typ_szk_kont_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => typ_szk_kont_czas.includes(g.czas) )
+typ_szk_kontC = [].concat(
+  ...typ_szk_kontF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+typ_szk_kont_censored = typ_szk_kontF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+typ_szk_kont_missing = Array.from(set_diff(
+  set_diff(
+    new Set(typ_szk_kont_rok_abs),
+    new Set(typ_szk_kontC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(typ_szk_kont_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (typ_szk_kont_censored.length > 0 || typ_szk_kont_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${typ_szk_kont_censored.concat(typ_szk_kont_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (typ_szk_kontC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 20 + 120*typ_szk_kontF.length),
+      width: 800,
+      marginRight: 80,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(typ_szk_kontC,
+                  {x: "value", y: "label", fy: "rok_abs",
+                   fill: (v) => pallets.typ_szk_kont[v.label],
+                   sort: {y: null}}),
+        Plot.textX(typ_szk_kontC,
+                   {x: "value", y: "label", fy: "rok_abs",
+                    dx: 30,
+                    fill: (v) => palletsFg.typ_szk_kont[v.label],
+                    text: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                   fontSize: 16,
+                   sort: {y: null}}),
+        Plot.axisX([0, 1],
+                   {label: null,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v),
+                    marginBottom: 0}),
+        Plot.axisFy({label: "Rok ukończenia szkoły",
+                     anchor: "left",
+                     marginLeft: 70+ 7*Math.max(...typ_szk_kontC.map( (v) => v.label.length)),
+                     dx: -7*Math.max(...typ_szk_kontC.map( (v) => v.label.length)),
+                     tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                     lineWidth: 20,
+                     fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: null,
+                    anchor: "left",
+                    lineWidth: 20,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(typ_szk_kontC,
+                 Plot.pointerY({x: "value", y: "label", fy: "rok_abs", anchor: "left",
+                                title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}}))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+viewof typ_szk_kont_tabela_wynikow = Inputs.toggle(
+  {
+    label: "Pokaż tabelę wartości",
+    value: false,
+    disabled: typ_szk_kontC.length == 0
+  }
+)
+{
+  if (typ_szk_kont_tabela_wynikow && typ_szk_kontC.length > 0) {
+    return aq.from(typ_szk_kontC)
+             .select(aq.names(Object.keys(typ_szk_kontC[0])
+                              .map( (c) => (labels.typ_szk_kont[c]) )))
+             .view({
+               format: {
+                 "Odsetek absolwentów (kończących szkołę w danym roku)":
+                   (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)
+               }
+             })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+typ_szk_kontD = [].concat(
+  ...typ_szk_kontF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  czas: g.czas,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(typ_szk_kontD)
+                   .rename(aq.names(Object.keys(typ_szk_kontD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.typ_szk_kont,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8,9], {before: 0})
+                   .toCSV(),
+                   "typ_szk_kont.csv"),
+    disabled: typ_szk_kontC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[typ_szk_kont_typ_szk]}%7D", target="_blank">${typ_szk_kont_typ_szk}</a>`
+```
+
+## Dyscyplina studiów
+
+Odsetek absolwentów kontynuujących naukę w podanej dyscyplinie, **wśród absolwentów, którzy kontynuują naukę na studiach**.
+
+Możliwe (choć rzadkie) są sytuacje, kiedy ten sam absolwent kontynuował naukę jednocześnie na więcej niż jednym kierunku, które są przypisane do różnych dyscyplin.
+
+```{ojs}
+//| echo: false
+//| panel: input
+viewof dyscyplina_kont_typ_szk = Inputs.radio(
+  new Set(dyscyplina_kont
+          .map( (g) => g.typ_szk )),
+  {
+    label: "Typ szkoły:",
+    value: "Technikum",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: false
+  }
+)
+viewof dyscyplina_kont_rok_abs = Inputs.checkbox(
+  new Set(dyscyplina_kont
+          .map( (g) => g.rok_abs )),
+  {
+    label: "Rok ukończenia szkoły:",
+    value: [d3.max(dyscyplina_kont.map( (g) => g.rok_abs ))],
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: "descending"
+  }
+)
+viewof dyscyplina_kont_szk_specjalna = Inputs.radio(
+  new Set(["Ogółem", "Nie", "Tak"].concat(
+          dyscyplina_kont
+          .map( (g) => g.szk_specjalna ))),
+  {
+    label: "Czy szkoła specjalna?",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof dyscyplina_kont_plec = Inputs.radio(
+  new Set(["Ogółem", "Kobiety", "Mężczyźni"].concat(
+          dyscyplina_kont
+          .map( (g) => g.plec ))),
+  {
+    label: "Płeć",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first
+  }
+)
+viewof dyscyplina_kont_nazwa_zaw = Inputs.select(
+  new Set(dyscyplina_kont
+          .filter( (g) => dyscyplina_kont_typ_szk.includes(g.typ_szk) )
+          .map( (g) => g.nazwa_zaw )),
+  {
+    label: "Zawód:",
+    value: "Ogółem",
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_overall_first,
+    multiple: false
+  }
+)
+viewof dyscyplina_kont_czas = Inputs.radio(
+  new Set(dyscyplina_kont
+          .map( (g) => g.czas )),
+  {
+    label: "Miesiąc od ukończenia szkoły:",
+    value: d3.min(dyscyplina_kont.map( (g) => g.czas )),
+    valueof: (v) => v,
+    format: (v) => v,
+    sort: sort_numeric
+  }
+)
+```
+
+```{ojs}
+//| echo: false
+dyscyplina_kont = await FileAttachment("../../data/300000-dyscyplina_kont.json").json()
+```
+
+```{ojs}
+//| echo: false
+dyscyplina_kontF = dyscyplina_kont
+  .filter( (g) => dyscyplina_kont_typ_szk.includes(g.typ_szk) )
+  .filter( (g) => dyscyplina_kont_rok_abs.includes(g.rok_abs) )
+  .filter( (g) => dyscyplina_kont_szk_specjalna.includes(g.szk_specjalna) )
+  .filter( (g) => dyscyplina_kont_plec.includes(g.plec) )
+  .filter( (g) => dyscyplina_kont_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => dyscyplina_kont_czas.includes(g.czas) )
+dyscyplina_kontC = [].concat(
+  ...dyscyplina_kontF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map( (x) => Object.assign({}, { rok_abs: g.rok_abs }, x) ) )
+)
+```
+
+```{ojs}
+//| echo: false
+dyscyplina_kont_censored = dyscyplina_kontF
+  .filter( (g) => Object.hasOwn(g.wartosc, "cenzura") )
+  .map( (g) => ({rok_abs: g.rok_abs, alert: g.wartosc.cenzura}) )
+dyscyplina_kont_missing = Array.from(set_diff(
+  set_diff(
+    new Set(dyscyplina_kont_rok_abs),
+    new Set(dyscyplina_kontC.map ( (g) => g.rok_abs ))
+  ),
+  new Set(dyscyplina_kont_censored.map( (g) => g.rok_abs ))
+)).map( (g) => ({rok_abs: g, alert: alertNoData}) )
+
+{
+  if (dyscyplina_kont_censored.length > 0 || dyscyplina_kont_missing.length > 0) {
+    return html`<div class="data-alerts">
+                ${dyscyplina_kont_censored.concat(dyscyplina_kont_missing)
+                  .sort( (x, y) => x.rok_abs - y.rok_abs)
+                  .map( (y) => html`<p><b>Rok ${y.rok_abs}:</b> ${y.alert}</p>` )}
+                </div>`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (dyscyplina_kontC.length > 0) {
+    return html`Kliknij na nagłówek kolumny, aby posortować tabelę według podanych w niej wartości.`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (dyscyplina_kontC.length > 0) {
+    return Inputs.table(aq.from(dyscyplina_kontC)
+                        .groupby("label")
+                        .pivot({ key: (v) => "Rok ukończenia szkoły: " + v.rok_abs },
+                               "value",
+                               { sort: false })
+                        .ungroup(),
+                        {
+                          header: {
+                            label: labels.dyscyplina_kont.label
+                          },
+                          format: Object.fromEntries(
+                                    Array.from(
+                                      new Set(
+                                        dyscyplina_kontC
+                                        .map( (v) => v.rok_abs) )
+                                      ).map( (v) => [ "Rok ukończenia szkoły: " + v,
+                                                      (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v) ] )
+                                  ),
+                          select: false
+                        })
+  } else {
+    return html``
+  }
+}
+```
+
+---
+
+```{ojs}
+//| echo: false
+dyscyplina_kontD = [].concat(
+  ...dyscyplina_kontF
+  .filter( (g) => Object.hasOwn(g.wartosc, "w") )
+  .map( (g) => g.wartosc.w.map(
+    (x) => Object.assign({}, x, { TERYT: "300000",
+                                  JST: "Województwo wielkopolskie",
+                                  typ_szk: g.typ_szk,
+                                  szk_specjalna: g.szk_specjalna,
+                                  plec: g.plec,
+                                  nazwa_zaw: g.nazwa_zaw,
+                                  czas: g.czas,
+                                  rok_abs: g.rok_abs })
+               )
+  )
+)
+Inputs.button(
+  "Pobierz dane (CSV)",
+  {
+    reduce: () =>
+      download_csv(aq.from(dyscyplina_kontD)
+                   .rename(aq.names(Object.keys(dyscyplina_kontD[0])
+                                    .map( (c) =>
+                                          Object.assign({}, labels.dyscyplina_kont,
+                                                            labels.filters)[c] )))
+                   .relocate([2,3,4,5,6,7,8,9], {before: 0})
+                   .toCSV(),
+                   "dyscyplina_kont.csv"),
+    disabled: dyscyplina_kontC.length == 0
+  }
+)
+```
+
+---
+
+```{ojs}
+//| echo: false
+html`Sprawdź w Rejestrze Szkół i Placówek Oświatowych (RSPO), jakie szkoły wybranego typu funkcjonują w województwie wielkopolskim: <a href="https://rspo.gov.pl/institutions?q=%7B%22stateId%22:15,${rspoSchoolTypes[dyscyplina_kont_typ_szk]}%7D", target="_blank">${dyscyplina_kont_typ_szk}</a>`
+```
+
+:::
+

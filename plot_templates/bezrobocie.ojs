@@ -1,0 +1,66 @@
+```{ojs}
+//| echo: false
+{
+  if (bezrobocieC.length > 0) {
+    return Plot.plot({
+      height: Math.max(160, 30 + 50*bezrobocieF.length),
+      width: 800,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(bezrobocieC,
+                  {x: "value", y: "rok_abs",
+                   fill: (v) => pallets.bezrobocie[v.label],
+                   sort: {y: null}}),
+        Plot.textX(bezrobocieC,
+                   Plot.stackX({x: "value", y: "rok_abs",
+                                fill: (v) => palletsFg.bezrobocie[v.label],
+                                text: (v) => v.value < 0.04 ? "" : Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                fontSize: 16,
+                                sort: {y: null}})),
+        Plot.axisX({label: null,
+                    tickSpacing: 60,
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'percent', maximumFractionDigits: 0 }).format(v),
+                    marginBottom: 30,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.axisY({label: "Rok ukończenia szkoły",
+                    tickFormat: (v) => Intl.NumberFormat(navigator.language, { style: 'decimal', maximumFractionDigits: 0, useGrouping: false }).format(v),
+                    lineWidth: 20, marginLeft: 60,
+                    fontSize: 14}), // niestety sprzęgnięte razem etykiety na osi i etykiety osi
+        Plot.tip(bezrobocieC, // tip jako ostatni, żeby przesłaniał wszystko inne (w szczególności osie)
+                 Plot.stackX(
+                   Plot.pointer({x: "value", y: "rok_abs",
+                                 title: (v) => "Rok ukończenia szkoły: " + v.rok_abs + "\n" + v.label + ": " + Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v.value),
+                                 fontSize: 16,
+                                 sort: {y: null}})))
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+// legenda w formie oddzielnego wykresu - akurat legendy są w OJS niedopracowane i w szczególności nie współpracują z takim elastycznym mapowaniem kolorów, w formie, w jakiej je wykorzystuję
+{
+  if (bezrobocieC.length > 0) {
+    return Plot.plot({
+      height: 60,
+      width: 800,
+      marginLeft: 60, marginTop: 0, marginBottom: 0,
+      x: {grid: false},
+      y: {grid: false},
+      marks: [
+        Plot.barX(bezrobocieC,
+                  {x: [0], y: "label",
+                   fill: (d) => pallets.bezrobocie[d.label],
+                   sort: {y: null}}),
+        Plot.axisX({label: null, tickSize: 0, fontSize: 0}),
+        Plot.axisY({label: null,
+                    anchor: "right", marginRight: 715, tickSize: 0,
+                    fontSize: 16})
+        ]
+    })
+  } else {
+    return html``
+  }
+}
+```

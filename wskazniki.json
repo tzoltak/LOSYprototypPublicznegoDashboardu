@@ -1,0 +1,149 @@
+[
+  {
+	  "id": "status",
+	  "name": "Ogólna sytuacja edukacyjno-zawodowa",
+	  "description": ["Ogólna sytuacja edukacyjno-zawodowa.", "Osoby zarejestrowane jako bezrobotne, które jednocześnie się uczą klasyfikowane są jako kontynujący naukę."],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+          "label": "Status edukacyjno-zawodowy",
+          "value": "Odsetek absolwentów (kończących szkołę w danym roku)"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)",
+	  "palette": {
+		  "Tylko nauka": "#009899",
+          "Nauka i praca": "#feae51",
+          "Tylko praca": "#f66831",
+          "Bezrobocie": "#0063aa",
+          "Brak danych o aktywności": "#b1b1b1"
+	  },
+	  "paletteFg": {
+		  "Tylko nauka": "#FFFFFF",
+          "Nauka i praca": "#000000",
+          "Tylko praca": "#FFFFFF",
+          "Bezrobocie": "#FFFFFF",
+          "Brak danych o aktywności": "#000000"
+	  }
+  },
+  {
+	  "id": "bezrobocie",
+	  "name": "Bezrobocie",
+	  "description": ["Odsetek osób zarejestrowanych jako bezrobotne w urzędach pracy w Polsce wśród absolwentów."],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+          "label": "Bezrobocie rejestrowane",
+          "value": "Odsetek absolwentów (kończących szkołę w danym roku)"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)",
+	  "palette": {
+		  "Zarejestrowany jako bezrobotny": "#d73568",
+		  "Brak statusu bezrobotnego": "#feae51"
+	  },
+	  "paletteFg": {
+		  "Zarejestrowany jako bezrobotny": "#FFFFFF",
+          "Brak statusu bezrobotnego": "#000000"
+	  }
+  },
+  {
+	  "id": "sr_wynagr",
+	  "name": "Wynagrodzenia z umów o pracę",
+	  "description": ["Średnie miesięczne wynagrodzenia brutto z umów o pracę od stycznia do grudnia roku następującego po roku ukończenia szkoły, obliczane na podstawie danych ZUS."],
+	  "filtersExclude": ["czas"],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+		  "label": "Statystyka",
+          "value": "Średnie wynagrodzenie miesięczne z umowy o pracę"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'PLN', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(v)",
+	  "palette": {
+		  "średnia": "#00a7db"
+	  },
+	  "paletteFg": {
+		  "średnia": "#000000"
+	  }
+  },
+  {
+	  "id": "matura_zdana",
+	  "name": "Świadectwo dojrzałości",
+	  "description": ["Odsetek uzyskujących świadectwo dojrzałości (maturalne) wśród absolwentów szkół pozwalających na przystąpienie do matury."],
+	  "filtersExclude": ["czas"],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+          "label": "Wynik egzaminu maturalnego",
+          "value": "Odsetek absolwentów (kończących szkołę w danym roku)"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)",
+	  "palette": {
+		  "Uzyskanie świadectwa dojrzałości": "#ec625a",
+          "Brak świadectwa dojrzałości": "#3a4050"
+	  },
+	  "paletteFg": {
+		  "Uzyskanie świadectwa dojrzałości": "#FFFFFF",
+          "Brak świadectwa dojrzałości": "#FFFFFF"
+	  }
+  },
+  {
+	  "id": "dyplom_zaw",
+	  "name": "Dyplom zawodowy",
+	  "description": ["Odsetek uzyskujących dyplomy, certyfikaty lub świadectwa poświadczające umiejętności zawodowe wśród absolwentów szkół prowadzących kształcenie zawodowe."],
+	  "filtersExclude": ["czas"],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+          "label": "Uzyskanie dyplomu/certyfikatu/świadectwa zawodowego",
+          "value": "Odsetek absolwentów (kończących szkołę w danym roku)"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)",
+	  "palette": {
+		  "Świadectwo czeladnicze": "#009899",
+          "Dyplom zawodowy": "#ec625a",
+          "Tylko certyfikat kwalifikacji": "#f7af41",
+          "Brak certyfikatów i dyplomu": "#b1b1b1"
+	  },
+	  "paletteFg": {
+		  "Świadectwo czeladnicze": "#FFFFFF",
+          "Dyplom zawodowy": "#FFFFFF",
+          "Tylko certyfikat kwalifikacji": "#000000",
+          "Brak certyfikatów i dyplomu": "#000000"
+	  }
+  },
+  {
+	  "id": "typ_szk_kont",
+	  "name": "Kontynuacja nauki",
+	  "description": ["Odsetek absolwentów kontynuujących naukę w podanych formach (typach szkół).",
+	                  "Możliwe (choć rzadkie) są sytuacje, kiedy ten sam absolwent kontynuował naukę w tym samym czasie w więcej niż jednej formie."],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+          "label": "Forma kontynuowania nauki",
+          "value": "Odsetek absolwentów (kończących szkołę w danym roku)"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)",
+	  "palette": {
+		  "Szkoła policealna": "#f66831",
+          "KKZ": "#f7af41",
+          "KUZ": "#f7af41",
+          "Liceum dla dorosłych": "#3d4f7d",
+          "Branżowa szkoła II stopnia": "#f66831",
+          "Studia": "#3d4f7d"
+	  },
+	  "paletteFg": {
+		  "Szkoła policealna": "#000000",
+          "KKZ": "#000000",
+          "KUZ": "#000000",
+          "Liceum dla dorosłych": "#000000",
+          "Branżowa szkoła II stopnia": "#000000",
+          "Studia": "#000000"
+	  }
+  },
+  {
+	  "id": "dyscyplina_kont",
+	  "name": "Dyscyplina studiów",
+	  "description": ["Odsetek absolwentów kontynuujących naukę w podanej dyscyplinie, **wśród absolwentów, którzy kontynuują naukę na studiach**.",
+	                  "Możliwe (choć rzadkie) są sytuacje, kiedy ten sam absolwent kontynuował naukę jednocześnie na więcej niż jednym kierunku, które są przypisane do różnych dyscyplin."],
+	  "colLabels": {
+		  "rok_abs": "Rok ukończenia szkoły",
+          "label": "Dyscyplina studiów",
+          "value": "Odsetek absolwentów (kończących szkołę w danym roku) kontynuujących naukę na studiach"
+	  },
+	  "valueFormat": "(v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v)",
+	  "noValueTable": "true"
+  }
+]

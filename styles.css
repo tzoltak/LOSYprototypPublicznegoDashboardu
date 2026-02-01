@@ -1,1 +1,20 @@
 /* css styles */
+
+div.data-alerts {
+  padding: 2px 10px;
+  background-color: #fff0a0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+}
+div.data-alerts p {
+  margin: 0;
+}
+
+.btn-quarto {
+  color: #ffffff !important;
+}
+
+th {
+	white-space: normal !important;
+}

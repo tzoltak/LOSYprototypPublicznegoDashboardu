@@ -1,0 +1,40 @@
+```{ojs}
+//| echo: false
+{
+  if (dyscyplina_kontC.length > 0) {
+    return html`Kliknij na nagłówek kolumny, aby posortować tabelę według podanych w niej wartości.`
+  } else {
+    return html``
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (dyscyplina_kontC.length > 0) {
+    return Inputs.table(aq.from(dyscyplina_kontC)
+                        .groupby("label")
+                        .pivot({ key: (v) => "Rok ukończenia szkoły: " + v.rok_abs },
+                               "value",
+                               { sort: false })
+                        .ungroup(),
+                        {
+                          header: {
+                            label: labels.dyscyplina_kont.label
+                          },
+                          format: Object.fromEntries(
+                                    Array.from(
+                                      new Set(
+                                        dyscyplina_kontC
+                                        .map( (v) => v.rok_abs) )
+                                      ).map( (v) => [ "Rok ukończenia szkoły: " + v,
+                                                      (v) => Intl.NumberFormat(navigator.language, { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v) ] )
+                                  ),
+                          select: false
+                        })
+  } else {
+    return html``
+  }
+}
+```

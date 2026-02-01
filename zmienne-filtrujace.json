@@ -1,0 +1,60 @@
+[
+  {
+	  "id": "typ_szk",
+	  "label": "Typ szkoły:",
+	  "type": "Inputs.radio",
+	  "value": "Technikum",
+	  "valueof": "~(v) => v",
+	  "format": "~(v) => v",
+	  "sort": "~false"
+  },
+  {
+	  "id": "rok_abs",
+	  "label": "Rok ukończenia szkoły:",
+	  "type": "Inputs.checkbox",
+	  "value": "~[d3.max",
+	  "valueof": "~(v) => v",
+	  "format": "~(v) => v",
+	  "sort": "descending"
+  },
+  {
+	  "id": "szk_specjalna",
+	  "label": "Czy szkoła specjalna?",
+	  "type": "Inputs.radio",
+	  "values": ["Ogółem", "Nie", "Tak"],
+	  "value": "Ogółem",
+	  "valueof": "~(v) => v",
+	  "format": "~(v) => v",
+	  "sort": "~sort_overall_first"
+  },
+  {
+	  "id": "plec",
+	  "label": "Płeć",
+	  "type": "Inputs.radio",
+	  "values": ["Ogółem", "Kobiety", "Mężczyźni"],
+	  "value": "Ogółem",
+	  "valueof": "~(v) => v",
+	  "format": "~(v) => v",
+	  "sort": "~sort_overall_first"
+  },
+  {
+	  "id": "nazwa_zaw",
+	  "label": "Zawód:",
+	  "type": "Inputs.select",
+	  "filter": ["typ_szk"],
+	  "value": "Ogółem",
+	  "valueof": "~(v) => v",
+	  "format": "~(v) => v",
+	  "sort": "~sort_overall_first",
+	  "multiple": "~false"
+  },
+  {
+	  "id": "czas",
+	  "label": "Miesiąc od ukończenia szkoły:",
+	  "type": "Inputs.radio",
+	  "value": "~d3.min",
+	  "valueof": "~(v) => v",
+	  "format": "~(v) => v",
+	  "sort": "~sort_numeric"
+  }
+]
