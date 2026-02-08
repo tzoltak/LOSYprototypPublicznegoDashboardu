@@ -7,7 +7,7 @@ format: html
 //| echo: false
 import { aq, op } from '@uwdata/arquero'
 import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '../../../resources/constants.js'
-import { set_diff, sort_overall_first, sort_numeric, download_csv, sequence } from '../../../resources/functions.js'
+import { set_diff, sort_overall_first, sort_numeric, compare, download_csv, sequence } from '../../../resources/functions.js'
 ```
 
 **Przejdź do sąsiednich:**
@@ -75,7 +75,7 @@ viewof status_plec = Inputs.radio(
 )
 viewof status_nazwa_zaw = Inputs.select(
   new Set(status
-          .filter( (g) => status_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(status_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -107,12 +107,12 @@ status = await FileAttachment("../../../data/061700-status.json").json()
 ```{ojs}
 //| echo: false
 statusF = status
-  .filter( (g) => status_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => status_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => status_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => status_plec.includes(g.plec) )
-  .filter( (g) => status_nazwa_zaw.includes(g.nazwa_zaw) )
-  .filter( (g) => status_czas.includes(g.czas) )
+  .filter( (g) => compare(status_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(status_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(status_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(status_plec, g.plec) )
+  .filter( (g) => compare(status_nazwa_zaw, g.nazwa_zaw) )
+  .filter( (g) => compare(status_czas, g.czas) )
 statusC = [].concat(
   ...statusF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )
@@ -337,7 +337,7 @@ viewof bezrobocie_plec = Inputs.radio(
 )
 viewof bezrobocie_nazwa_zaw = Inputs.select(
   new Set(bezrobocie
-          .filter( (g) => bezrobocie_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(bezrobocie_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -369,12 +369,12 @@ bezrobocie = await FileAttachment("../../../data/061700-bezrobocie.json").json()
 ```{ojs}
 //| echo: false
 bezrobocieF = bezrobocie
-  .filter( (g) => bezrobocie_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => bezrobocie_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => bezrobocie_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => bezrobocie_plec.includes(g.plec) )
-  .filter( (g) => bezrobocie_nazwa_zaw.includes(g.nazwa_zaw) )
-  .filter( (g) => bezrobocie_czas.includes(g.czas) )
+  .filter( (g) => compare(bezrobocie_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(bezrobocie_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(bezrobocie_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(bezrobocie_plec, g.plec) )
+  .filter( (g) => compare(bezrobocie_nazwa_zaw, g.nazwa_zaw) )
+  .filter( (g) => compare(bezrobocie_czas, g.czas) )
 bezrobocieC = [].concat(
   ...bezrobocieF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )
@@ -599,7 +599,7 @@ viewof sr_wynagr_plec = Inputs.radio(
 )
 viewof sr_wynagr_nazwa_zaw = Inputs.select(
   new Set(sr_wynagr
-          .filter( (g) => sr_wynagr_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(sr_wynagr_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -620,11 +620,11 @@ sr_wynagr = await FileAttachment("../../../data/061700-sr_wynagr.json").json()
 ```{ojs}
 //| echo: false
 sr_wynagrF = sr_wynagr
-  .filter( (g) => sr_wynagr_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => sr_wynagr_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => sr_wynagr_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => sr_wynagr_plec.includes(g.plec) )
-  .filter( (g) => sr_wynagr_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => compare(sr_wynagr_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(sr_wynagr_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(sr_wynagr_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(sr_wynagr_plec, g.plec) )
+  .filter( (g) => compare(sr_wynagr_nazwa_zaw, g.nazwa_zaw) )
 sr_wynagrC = [].concat(
   ...sr_wynagrF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )
@@ -825,7 +825,7 @@ viewof matura_zdana_plec = Inputs.radio(
 )
 viewof matura_zdana_nazwa_zaw = Inputs.select(
   new Set(matura_zdana
-          .filter( (g) => matura_zdana_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(matura_zdana_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -846,11 +846,11 @@ matura_zdana = await FileAttachment("../../../data/061700-matura_zdana.json").js
 ```{ojs}
 //| echo: false
 matura_zdanaF = matura_zdana
-  .filter( (g) => matura_zdana_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => matura_zdana_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => matura_zdana_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => matura_zdana_plec.includes(g.plec) )
-  .filter( (g) => matura_zdana_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => compare(matura_zdana_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(matura_zdana_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(matura_zdana_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(matura_zdana_plec, g.plec) )
+  .filter( (g) => compare(matura_zdana_nazwa_zaw, g.nazwa_zaw) )
 matura_zdanaC = [].concat(
   ...matura_zdanaF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )
@@ -1073,7 +1073,7 @@ viewof dyplom_zaw_plec = Inputs.radio(
 )
 viewof dyplom_zaw_nazwa_zaw = Inputs.select(
   new Set(dyplom_zaw
-          .filter( (g) => dyplom_zaw_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(dyplom_zaw_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -1094,11 +1094,11 @@ dyplom_zaw = await FileAttachment("../../../data/061700-dyplom_zaw.json").json()
 ```{ojs}
 //| echo: false
 dyplom_zawF = dyplom_zaw
-  .filter( (g) => dyplom_zaw_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => dyplom_zaw_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => dyplom_zaw_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => dyplom_zaw_plec.includes(g.plec) )
-  .filter( (g) => dyplom_zaw_nazwa_zaw.includes(g.nazwa_zaw) )
+  .filter( (g) => compare(dyplom_zaw_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(dyplom_zaw_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(dyplom_zaw_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(dyplom_zaw_plec, g.plec) )
+  .filter( (g) => compare(dyplom_zaw_nazwa_zaw, g.nazwa_zaw) )
 dyplom_zawC = [].concat(
   ...dyplom_zawF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )
@@ -1324,7 +1324,7 @@ viewof typ_szk_kont_plec = Inputs.radio(
 )
 viewof typ_szk_kont_nazwa_zaw = Inputs.select(
   new Set(typ_szk_kont
-          .filter( (g) => typ_szk_kont_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(typ_szk_kont_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -1356,12 +1356,12 @@ typ_szk_kont = await FileAttachment("../../../data/061700-typ_szk_kont.json").js
 ```{ojs}
 //| echo: false
 typ_szk_kontF = typ_szk_kont
-  .filter( (g) => typ_szk_kont_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => typ_szk_kont_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => typ_szk_kont_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => typ_szk_kont_plec.includes(g.plec) )
-  .filter( (g) => typ_szk_kont_nazwa_zaw.includes(g.nazwa_zaw) )
-  .filter( (g) => typ_szk_kont_czas.includes(g.czas) )
+  .filter( (g) => compare(typ_szk_kont_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(typ_szk_kont_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(typ_szk_kont_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(typ_szk_kont_plec, g.plec) )
+  .filter( (g) => compare(typ_szk_kont_nazwa_zaw, g.nazwa_zaw) )
+  .filter( (g) => compare(typ_szk_kont_czas, g.czas) )
 typ_szk_kontC = [].concat(
   ...typ_szk_kontF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )
@@ -1571,7 +1571,7 @@ viewof dyscyplina_kont_plec = Inputs.radio(
 )
 viewof dyscyplina_kont_nazwa_zaw = Inputs.select(
   new Set(dyscyplina_kont
-          .filter( (g) => dyscyplina_kont_typ_szk.includes(g.typ_szk) )
+          .filter( (g) => compare(dyscyplina_kont_typ_szk, g.typ_szk) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
@@ -1603,12 +1603,12 @@ dyscyplina_kont = await FileAttachment("../../../data/061700-dyscyplina_kont.jso
 ```{ojs}
 //| echo: false
 dyscyplina_kontF = dyscyplina_kont
-  .filter( (g) => dyscyplina_kont_typ_szk.includes(g.typ_szk) )
-  .filter( (g) => dyscyplina_kont_rok_abs.includes(g.rok_abs) )
-  .filter( (g) => dyscyplina_kont_szk_specjalna.includes(g.szk_specjalna) )
-  .filter( (g) => dyscyplina_kont_plec.includes(g.plec) )
-  .filter( (g) => dyscyplina_kont_nazwa_zaw.includes(g.nazwa_zaw) )
-  .filter( (g) => dyscyplina_kont_czas.includes(g.czas) )
+  .filter( (g) => compare(dyscyplina_kont_typ_szk, g.typ_szk) )
+  .filter( (g) => compare(dyscyplina_kont_rok_abs, g.rok_abs) )
+  .filter( (g) => compare(dyscyplina_kont_szk_specjalna, g.szk_specjalna) )
+  .filter( (g) => compare(dyscyplina_kont_plec, g.plec) )
+  .filter( (g) => compare(dyscyplina_kont_nazwa_zaw, g.nazwa_zaw) )
+  .filter( (g) => compare(dyscyplina_kont_czas, g.czas) )
 dyscyplina_kontC = [].concat(
   ...dyscyplina_kontF
   .filter( (g) => Object.hasOwn(g.wartosc, "w") )

@@ -22,6 +22,10 @@ export function sort_numeric(a, b) {
   return a - b;
 }
 
+export function compare(selected, data) {
+  return Array.isArray(selected) ? selected.includes(data) : selected === data;
+}
+
 export function download_csv(data, filename) {
   const blob = new Blob([data], {type: "text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);

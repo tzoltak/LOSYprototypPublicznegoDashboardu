@@ -25,8 +25,8 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
                  c(w,
                    sapply(f$filter,
                           function(ff, w) {
-                            paste0(".filter( (g) => ", w, "_", ff,
-                                   ".includes(g.", ff, ") )")
+                            paste0(".filter( (g) => compare(", w, "_", ff,
+                                   ", g.", ff, ") )")
                           },
                           w = w)),
                  collapse = "
@@ -88,8 +88,8 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
     paste0(w$id, "F = ", w$id),
     sapply(filtry,
            function(f) {
-             paste0("  .filter( (g) => ", w$id, "_", f$id,
-                    ".includes(g.", f$id, ") )")
+             paste0("  .filter( (g) => compare(", w$id, "_", f$id,
+                    ", g.", f$id, ") )")
            }),
     paste0(w$id, "C = [].concat("),
     paste0("  ...", w$id, "F"),
@@ -252,7 +252,7 @@ przygotuj_kod_strony <- function(jst, filtry, wskazniki, sasiedzi = NULL) {
     "import { aq, op } from '@uwdata/arquero'",
     paste0("import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '",
            sciezkaDoZrodla, "resources/constants.js'"),
-    paste0("import { set_diff, sort_overall_first, sort_numeric, download_csv, sequence } from '",
+    paste0("import { set_diff, sort_overall_first, sort_numeric, compare, download_csv, sequence } from '",
            sciezkaDoZrodla, "resources/functions.js'"),
     "```",
     ""
