@@ -26,6 +26,18 @@ export function compare(selected, data) {
   return Array.isArray(selected) ? selected.includes(data) : selected === data;
 }
 
+export function compare_arrays(a1, a2) {
+  if (!Array.isArray(a1) || !Array.isArray(a2)) return false;
+  return a1.reduce( (pr, i) => pr && a2.includes(i), true) && a2.reduce( (pr, i) => pr && a1.includes(i), true);
+}
+export function input_values_equal(x, y) {
+  if (Array.isArray(x) & Array.isArray(y)) {
+   return x.reduce( (pr, i) => pr && y.includes(i), true) && y.reduce( (pr, i) => pr && x.includes(i), true);
+  } else {
+    return x === y;
+  }
+}
+
 export function download_csv(data, filename) {
   const blob = new Blob([data], {type: "text/csv;charset=utf-8"});
   const url = URL.createObjectURL(blob);

@@ -40,7 +40,7 @@ export const labels = {
     typ_szk: "Typ szkoły:",
     rok_abs: "Rok ukończenia szkoły:",
     szk_specjalna: "Czy szkoła specjalna?",
-    plec: "Płeć",
+    plec: "Płeć:",
     nazwa_zaw: "Zawód:",
     czas: "Miesiąc od ukończenia szkoły:"
   }

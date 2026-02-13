@@ -7,7 +7,7 @@ format: html
 //| echo: false
 import { aq, op } from '@uwdata/arquero'
 import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '../resources/constants.js'
-import { set_diff, sort_overall_first, sort_numeric, compare, download_csv, sequence } from '../resources/functions.js'
+import { set_diff, sort_overall_first, sort_numeric, compare, input_values_equal, download_csv, sequence } from '../resources/functions.js'
 ```
 
 ::: {.panel-tabset}
@@ -20,13 +20,24 @@ Osoby zarejestrowane jako bezrobotne, które jednocześnie się uczą klasyfikow
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable status_typ_szk_v = "Technikum"
+mutable status_rok_abs_v = [d3.max(status.map( (g) => g.rok_abs ))]
+mutable status_szk_specjalna_v = "Ogółem"
+mutable status_plec_v = "Ogółem"
+mutable status_nazwa_zaw_v = "Ogółem"
+mutable status_czas_v = d3.min(status.map( (g) => g.czas ))
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof status_typ_szk = Inputs.radio(
   new Set(status
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: status_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -37,7 +48,7 @@ viewof status_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(status.map( (g) => g.rok_abs ))],
+    value: status_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -49,10 +60,18 @@ viewof status_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: status_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(status.map( (g) => g.szk_specjalna )),
+                       new Set(status
+                               .filter( (g) => compare(status_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(status_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(status_plec_v, g.plec) )
+                               .filter( (g) => compare(status_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(status_czas_v, g.czas) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof status_plec = Inputs.radio(
@@ -60,20 +79,32 @@ viewof status_plec = Inputs.radio(
           status
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: status_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(status.map( (g) => g.plec )),
+                       new Set(status
+                               .filter( (g) => compare(status_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(status_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(status_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(status_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(status_czas_v, g.czas) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof status_nazwa_zaw = Inputs.select(
   new Set(status
-          .filter( (g) => compare(status_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(status_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(status_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(status_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(status_plec_v, g.plec) )
+          .filter( (g) => compare(status_czas_v, g.czas) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: status_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
@@ -85,12 +116,45 @@ viewof status_czas = Inputs.radio(
           .map( (g) => g.czas )),
   {
     label: "Miesiąc od ukończenia szkoły:",
-    value: d3.min(status.map( (g) => g.czas )),
+    value: status_czas_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_numeric
+    sort: sort_numeric,
+    disabled: set_diff(new Set(status.map( (g) => g.czas )),
+                       new Set(status
+                               .filter( (g) => compare(status_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(status_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(status_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(status_plec_v, g.plec) )
+                               .filter( (g) => compare(status_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.czas )))
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(status_typ_szk, status_typ_szk_v)) {
+    mutable status_typ_szk_v = status_typ_szk
+  }
+  if (!input_values_equal(status_rok_abs, status_rok_abs_v)) {
+    mutable status_rok_abs_v = status_rok_abs
+  }
+  if (!input_values_equal(status_szk_specjalna, status_szk_specjalna_v)) {
+    mutable status_szk_specjalna_v = status_szk_specjalna
+  }
+  if (!input_values_equal(status_plec, status_plec_v)) {
+    mutable status_plec_v = status_plec
+  }
+  if (!input_values_equal(status_nazwa_zaw, status_nazwa_zaw_v)) {
+    mutable status_nazwa_zaw_v = status_nazwa_zaw
+  }
+  if (!input_values_equal(status_czas, status_czas_v)) {
+    mutable status_czas_v = status_czas
+  }
+}
 ```
 
 ```{ojs}
@@ -275,13 +339,24 @@ Odsetek osób zarejestrowanych jako bezrobotne w urzędach pracy w Polsce wśró
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable bezrobocie_typ_szk_v = "Technikum"
+mutable bezrobocie_rok_abs_v = [d3.max(bezrobocie.map( (g) => g.rok_abs ))]
+mutable bezrobocie_szk_specjalna_v = "Ogółem"
+mutable bezrobocie_plec_v = "Ogółem"
+mutable bezrobocie_nazwa_zaw_v = "Ogółem"
+mutable bezrobocie_czas_v = d3.min(bezrobocie.map( (g) => g.czas ))
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof bezrobocie_typ_szk = Inputs.radio(
   new Set(bezrobocie
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: bezrobocie_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -292,7 +367,7 @@ viewof bezrobocie_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(bezrobocie.map( (g) => g.rok_abs ))],
+    value: bezrobocie_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -304,10 +379,18 @@ viewof bezrobocie_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: bezrobocie_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(bezrobocie.map( (g) => g.szk_specjalna )),
+                       new Set(bezrobocie
+                               .filter( (g) => compare(bezrobocie_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(bezrobocie_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(bezrobocie_plec_v, g.plec) )
+                               .filter( (g) => compare(bezrobocie_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(bezrobocie_czas_v, g.czas) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof bezrobocie_plec = Inputs.radio(
@@ -315,20 +398,32 @@ viewof bezrobocie_plec = Inputs.radio(
           bezrobocie
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: bezrobocie_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(bezrobocie.map( (g) => g.plec )),
+                       new Set(bezrobocie
+                               .filter( (g) => compare(bezrobocie_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(bezrobocie_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(bezrobocie_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(bezrobocie_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(bezrobocie_czas_v, g.czas) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof bezrobocie_nazwa_zaw = Inputs.select(
   new Set(bezrobocie
-          .filter( (g) => compare(bezrobocie_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(bezrobocie_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(bezrobocie_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(bezrobocie_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(bezrobocie_plec_v, g.plec) )
+          .filter( (g) => compare(bezrobocie_czas_v, g.czas) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: bezrobocie_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
@@ -340,12 +435,45 @@ viewof bezrobocie_czas = Inputs.radio(
           .map( (g) => g.czas )),
   {
     label: "Miesiąc od ukończenia szkoły:",
-    value: d3.min(bezrobocie.map( (g) => g.czas )),
+    value: bezrobocie_czas_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_numeric
+    sort: sort_numeric,
+    disabled: set_diff(new Set(bezrobocie.map( (g) => g.czas )),
+                       new Set(bezrobocie
+                               .filter( (g) => compare(bezrobocie_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(bezrobocie_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(bezrobocie_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(bezrobocie_plec_v, g.plec) )
+                               .filter( (g) => compare(bezrobocie_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.czas )))
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(bezrobocie_typ_szk, bezrobocie_typ_szk_v)) {
+    mutable bezrobocie_typ_szk_v = bezrobocie_typ_szk
+  }
+  if (!input_values_equal(bezrobocie_rok_abs, bezrobocie_rok_abs_v)) {
+    mutable bezrobocie_rok_abs_v = bezrobocie_rok_abs
+  }
+  if (!input_values_equal(bezrobocie_szk_specjalna, bezrobocie_szk_specjalna_v)) {
+    mutable bezrobocie_szk_specjalna_v = bezrobocie_szk_specjalna
+  }
+  if (!input_values_equal(bezrobocie_plec, bezrobocie_plec_v)) {
+    mutable bezrobocie_plec_v = bezrobocie_plec
+  }
+  if (!input_values_equal(bezrobocie_nazwa_zaw, bezrobocie_nazwa_zaw_v)) {
+    mutable bezrobocie_nazwa_zaw_v = bezrobocie_nazwa_zaw
+  }
+  if (!input_values_equal(bezrobocie_czas, bezrobocie_czas_v)) {
+    mutable bezrobocie_czas_v = bezrobocie_czas
+  }
+}
 ```
 
 ```{ojs}
@@ -530,13 +658,23 @@ Inputs.button(
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable sr_wynagr_typ_szk_v = "Technikum"
+mutable sr_wynagr_rok_abs_v = [d3.max(sr_wynagr.map( (g) => g.rok_abs ))]
+mutable sr_wynagr_szk_specjalna_v = "Ogółem"
+mutable sr_wynagr_plec_v = "Ogółem"
+mutable sr_wynagr_nazwa_zaw_v = "Ogółem"
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof sr_wynagr_typ_szk = Inputs.radio(
   new Set(sr_wynagr
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: sr_wynagr_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -547,7 +685,7 @@ viewof sr_wynagr_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(sr_wynagr.map( (g) => g.rok_abs ))],
+    value: sr_wynagr_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -559,10 +697,17 @@ viewof sr_wynagr_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: sr_wynagr_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(sr_wynagr.map( (g) => g.szk_specjalna )),
+                       new Set(sr_wynagr
+                               .filter( (g) => compare(sr_wynagr_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(sr_wynagr_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(sr_wynagr_plec_v, g.plec) )
+                               .filter( (g) => compare(sr_wynagr_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof sr_wynagr_plec = Inputs.radio(
@@ -570,26 +715,58 @@ viewof sr_wynagr_plec = Inputs.radio(
           sr_wynagr
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: sr_wynagr_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(sr_wynagr.map( (g) => g.plec )),
+                       new Set(sr_wynagr
+                               .filter( (g) => compare(sr_wynagr_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(sr_wynagr_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(sr_wynagr_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(sr_wynagr_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof sr_wynagr_nazwa_zaw = Inputs.select(
   new Set(sr_wynagr
-          .filter( (g) => compare(sr_wynagr_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(sr_wynagr_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(sr_wynagr_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(sr_wynagr_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(sr_wynagr_plec_v, g.plec) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: sr_wynagr_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
     multiple: false
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(sr_wynagr_typ_szk, sr_wynagr_typ_szk_v)) {
+    mutable sr_wynagr_typ_szk_v = sr_wynagr_typ_szk
+  }
+  if (!input_values_equal(sr_wynagr_rok_abs, sr_wynagr_rok_abs_v)) {
+    mutable sr_wynagr_rok_abs_v = sr_wynagr_rok_abs
+  }
+  if (!input_values_equal(sr_wynagr_szk_specjalna, sr_wynagr_szk_specjalna_v)) {
+    mutable sr_wynagr_szk_specjalna_v = sr_wynagr_szk_specjalna
+  }
+  if (!input_values_equal(sr_wynagr_plec, sr_wynagr_plec_v)) {
+    mutable sr_wynagr_plec_v = sr_wynagr_plec
+  }
+  if (!input_values_equal(sr_wynagr_nazwa_zaw, sr_wynagr_nazwa_zaw_v)) {
+    mutable sr_wynagr_nazwa_zaw_v = sr_wynagr_nazwa_zaw
+  }
+}
 ```
 
 ```{ojs}
@@ -749,13 +926,23 @@ Odsetek uzyskujących świadectwo dojrzałości (maturalne) wśród absolwentów
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable matura_zdana_typ_szk_v = "Technikum"
+mutable matura_zdana_rok_abs_v = [d3.max(matura_zdana.map( (g) => g.rok_abs ))]
+mutable matura_zdana_szk_specjalna_v = "Ogółem"
+mutable matura_zdana_plec_v = "Ogółem"
+mutable matura_zdana_nazwa_zaw_v = "Ogółem"
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof matura_zdana_typ_szk = Inputs.radio(
   new Set(matura_zdana
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: matura_zdana_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -766,7 +953,7 @@ viewof matura_zdana_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(matura_zdana.map( (g) => g.rok_abs ))],
+    value: matura_zdana_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -778,10 +965,17 @@ viewof matura_zdana_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: matura_zdana_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(matura_zdana.map( (g) => g.szk_specjalna )),
+                       new Set(matura_zdana
+                               .filter( (g) => compare(matura_zdana_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(matura_zdana_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(matura_zdana_plec_v, g.plec) )
+                               .filter( (g) => compare(matura_zdana_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof matura_zdana_plec = Inputs.radio(
@@ -789,26 +983,58 @@ viewof matura_zdana_plec = Inputs.radio(
           matura_zdana
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: matura_zdana_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(matura_zdana.map( (g) => g.plec )),
+                       new Set(matura_zdana
+                               .filter( (g) => compare(matura_zdana_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(matura_zdana_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(matura_zdana_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(matura_zdana_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof matura_zdana_nazwa_zaw = Inputs.select(
   new Set(matura_zdana
-          .filter( (g) => compare(matura_zdana_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(matura_zdana_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(matura_zdana_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(matura_zdana_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(matura_zdana_plec_v, g.plec) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: matura_zdana_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
     multiple: false
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(matura_zdana_typ_szk, matura_zdana_typ_szk_v)) {
+    mutable matura_zdana_typ_szk_v = matura_zdana_typ_szk
+  }
+  if (!input_values_equal(matura_zdana_rok_abs, matura_zdana_rok_abs_v)) {
+    mutable matura_zdana_rok_abs_v = matura_zdana_rok_abs
+  }
+  if (!input_values_equal(matura_zdana_szk_specjalna, matura_zdana_szk_specjalna_v)) {
+    mutable matura_zdana_szk_specjalna_v = matura_zdana_szk_specjalna
+  }
+  if (!input_values_equal(matura_zdana_plec, matura_zdana_plec_v)) {
+    mutable matura_zdana_plec_v = matura_zdana_plec
+  }
+  if (!input_values_equal(matura_zdana_nazwa_zaw, matura_zdana_nazwa_zaw_v)) {
+    mutable matura_zdana_nazwa_zaw_v = matura_zdana_nazwa_zaw
+  }
+}
 ```
 
 ```{ojs}
@@ -990,13 +1216,23 @@ Odsetek uzyskujących dyplomy, certyfikaty lub świadectwa poświadczające umie
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable dyplom_zaw_typ_szk_v = "Technikum"
+mutable dyplom_zaw_rok_abs_v = [d3.max(dyplom_zaw.map( (g) => g.rok_abs ))]
+mutable dyplom_zaw_szk_specjalna_v = "Ogółem"
+mutable dyplom_zaw_plec_v = "Ogółem"
+mutable dyplom_zaw_nazwa_zaw_v = "Ogółem"
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof dyplom_zaw_typ_szk = Inputs.radio(
   new Set(dyplom_zaw
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: dyplom_zaw_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -1007,7 +1243,7 @@ viewof dyplom_zaw_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(dyplom_zaw.map( (g) => g.rok_abs ))],
+    value: dyplom_zaw_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -1019,10 +1255,17 @@ viewof dyplom_zaw_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: dyplom_zaw_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(dyplom_zaw.map( (g) => g.szk_specjalna )),
+                       new Set(dyplom_zaw
+                               .filter( (g) => compare(dyplom_zaw_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(dyplom_zaw_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(dyplom_zaw_plec_v, g.plec) )
+                               .filter( (g) => compare(dyplom_zaw_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof dyplom_zaw_plec = Inputs.radio(
@@ -1030,26 +1273,58 @@ viewof dyplom_zaw_plec = Inputs.radio(
           dyplom_zaw
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: dyplom_zaw_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(dyplom_zaw.map( (g) => g.plec )),
+                       new Set(dyplom_zaw
+                               .filter( (g) => compare(dyplom_zaw_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(dyplom_zaw_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(dyplom_zaw_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(dyplom_zaw_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof dyplom_zaw_nazwa_zaw = Inputs.select(
   new Set(dyplom_zaw
-          .filter( (g) => compare(dyplom_zaw_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(dyplom_zaw_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(dyplom_zaw_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(dyplom_zaw_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(dyplom_zaw_plec_v, g.plec) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: dyplom_zaw_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
     multiple: false
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(dyplom_zaw_typ_szk, dyplom_zaw_typ_szk_v)) {
+    mutable dyplom_zaw_typ_szk_v = dyplom_zaw_typ_szk
+  }
+  if (!input_values_equal(dyplom_zaw_rok_abs, dyplom_zaw_rok_abs_v)) {
+    mutable dyplom_zaw_rok_abs_v = dyplom_zaw_rok_abs
+  }
+  if (!input_values_equal(dyplom_zaw_szk_specjalna, dyplom_zaw_szk_specjalna_v)) {
+    mutable dyplom_zaw_szk_specjalna_v = dyplom_zaw_szk_specjalna
+  }
+  if (!input_values_equal(dyplom_zaw_plec, dyplom_zaw_plec_v)) {
+    mutable dyplom_zaw_plec_v = dyplom_zaw_plec
+  }
+  if (!input_values_equal(dyplom_zaw_nazwa_zaw, dyplom_zaw_nazwa_zaw_v)) {
+    mutable dyplom_zaw_nazwa_zaw_v = dyplom_zaw_nazwa_zaw
+  }
+}
 ```
 
 ```{ojs}
@@ -1234,13 +1509,24 @@ Możliwe (choć rzadkie) są sytuacje, kiedy ten sam absolwent kontynuował nauk
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable typ_szk_kont_typ_szk_v = "Technikum"
+mutable typ_szk_kont_rok_abs_v = [d3.max(typ_szk_kont.map( (g) => g.rok_abs ))]
+mutable typ_szk_kont_szk_specjalna_v = "Ogółem"
+mutable typ_szk_kont_plec_v = "Ogółem"
+mutable typ_szk_kont_nazwa_zaw_v = "Ogółem"
+mutable typ_szk_kont_czas_v = d3.min(typ_szk_kont.map( (g) => g.czas ))
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof typ_szk_kont_typ_szk = Inputs.radio(
   new Set(typ_szk_kont
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: typ_szk_kont_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -1251,7 +1537,7 @@ viewof typ_szk_kont_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(typ_szk_kont.map( (g) => g.rok_abs ))],
+    value: typ_szk_kont_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -1263,10 +1549,18 @@ viewof typ_szk_kont_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: typ_szk_kont_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(typ_szk_kont.map( (g) => g.szk_specjalna )),
+                       new Set(typ_szk_kont
+                               .filter( (g) => compare(typ_szk_kont_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(typ_szk_kont_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(typ_szk_kont_plec_v, g.plec) )
+                               .filter( (g) => compare(typ_szk_kont_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(typ_szk_kont_czas_v, g.czas) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof typ_szk_kont_plec = Inputs.radio(
@@ -1274,20 +1568,32 @@ viewof typ_szk_kont_plec = Inputs.radio(
           typ_szk_kont
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: typ_szk_kont_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(typ_szk_kont.map( (g) => g.plec )),
+                       new Set(typ_szk_kont
+                               .filter( (g) => compare(typ_szk_kont_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(typ_szk_kont_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(typ_szk_kont_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(typ_szk_kont_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(typ_szk_kont_czas_v, g.czas) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof typ_szk_kont_nazwa_zaw = Inputs.select(
   new Set(typ_szk_kont
-          .filter( (g) => compare(typ_szk_kont_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(typ_szk_kont_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(typ_szk_kont_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(typ_szk_kont_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(typ_szk_kont_plec_v, g.plec) )
+          .filter( (g) => compare(typ_szk_kont_czas_v, g.czas) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: typ_szk_kont_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
@@ -1299,12 +1605,45 @@ viewof typ_szk_kont_czas = Inputs.radio(
           .map( (g) => g.czas )),
   {
     label: "Miesiąc od ukończenia szkoły:",
-    value: d3.min(typ_szk_kont.map( (g) => g.czas )),
+    value: typ_szk_kont_czas_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_numeric
+    sort: sort_numeric,
+    disabled: set_diff(new Set(typ_szk_kont.map( (g) => g.czas )),
+                       new Set(typ_szk_kont
+                               .filter( (g) => compare(typ_szk_kont_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(typ_szk_kont_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(typ_szk_kont_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(typ_szk_kont_plec_v, g.plec) )
+                               .filter( (g) => compare(typ_szk_kont_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.czas )))
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(typ_szk_kont_typ_szk, typ_szk_kont_typ_szk_v)) {
+    mutable typ_szk_kont_typ_szk_v = typ_szk_kont_typ_szk
+  }
+  if (!input_values_equal(typ_szk_kont_rok_abs, typ_szk_kont_rok_abs_v)) {
+    mutable typ_szk_kont_rok_abs_v = typ_szk_kont_rok_abs
+  }
+  if (!input_values_equal(typ_szk_kont_szk_specjalna, typ_szk_kont_szk_specjalna_v)) {
+    mutable typ_szk_kont_szk_specjalna_v = typ_szk_kont_szk_specjalna
+  }
+  if (!input_values_equal(typ_szk_kont_plec, typ_szk_kont_plec_v)) {
+    mutable typ_szk_kont_plec_v = typ_szk_kont_plec
+  }
+  if (!input_values_equal(typ_szk_kont_nazwa_zaw, typ_szk_kont_nazwa_zaw_v)) {
+    mutable typ_szk_kont_nazwa_zaw_v = typ_szk_kont_nazwa_zaw
+  }
+  if (!input_values_equal(typ_szk_kont_czas, typ_szk_kont_czas_v)) {
+    mutable typ_szk_kont_czas_v = typ_szk_kont_czas
+  }
+}
 ```
 
 ```{ojs}
@@ -1474,13 +1813,24 @@ Możliwe (choć rzadkie) są sytuacje, kiedy ten sam absolwent kontynuował nauk
 
 ```{ojs}
 //| echo: false
+//| output: false
+mutable dyscyplina_kont_typ_szk_v = "Technikum"
+mutable dyscyplina_kont_rok_abs_v = [d3.max(dyscyplina_kont.map( (g) => g.rok_abs ))]
+mutable dyscyplina_kont_szk_specjalna_v = "Ogółem"
+mutable dyscyplina_kont_plec_v = "Ogółem"
+mutable dyscyplina_kont_nazwa_zaw_v = "Ogółem"
+mutable dyscyplina_kont_czas_v = d3.min(dyscyplina_kont.map( (g) => g.czas ))
+```
+
+```{ojs}
+//| echo: false
 //| panel: input
 viewof dyscyplina_kont_typ_szk = Inputs.radio(
   new Set(dyscyplina_kont
           .map( (g) => g.typ_szk )),
   {
     label: "Typ szkoły:",
-    value: "Technikum",
+    value: dyscyplina_kont_typ_szk_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: false
@@ -1491,7 +1841,7 @@ viewof dyscyplina_kont_rok_abs = Inputs.checkbox(
           .map( (g) => g.rok_abs )),
   {
     label: "Rok ukończenia szkoły:",
-    value: [d3.max(dyscyplina_kont.map( (g) => g.rok_abs ))],
+    value: dyscyplina_kont_rok_abs_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: "descending"
@@ -1503,10 +1853,18 @@ viewof dyscyplina_kont_szk_specjalna = Inputs.radio(
           .map( (g) => g.szk_specjalna ))),
   {
     label: "Czy szkoła specjalna?",
-    value: "Ogółem",
+    value: dyscyplina_kont_szk_specjalna_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(dyscyplina_kont.map( (g) => g.szk_specjalna )),
+                       new Set(dyscyplina_kont
+                               .filter( (g) => compare(dyscyplina_kont_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(dyscyplina_kont_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(dyscyplina_kont_plec_v, g.plec) )
+                               .filter( (g) => compare(dyscyplina_kont_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(dyscyplina_kont_czas_v, g.czas) )
+                               .map( (g) => g.szk_specjalna )))
   }
 )
 viewof dyscyplina_kont_plec = Inputs.radio(
@@ -1514,20 +1872,32 @@ viewof dyscyplina_kont_plec = Inputs.radio(
           dyscyplina_kont
           .map( (g) => g.plec ))),
   {
-    label: "Płeć",
-    value: "Ogółem",
+    label: "Płeć:",
+    value: dyscyplina_kont_plec_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_overall_first
+    sort: sort_overall_first,
+    disabled: set_diff(new Set(dyscyplina_kont.map( (g) => g.plec )),
+                       new Set(dyscyplina_kont
+                               .filter( (g) => compare(dyscyplina_kont_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(dyscyplina_kont_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(dyscyplina_kont_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(dyscyplina_kont_nazwa_zaw_v, g.nazwa_zaw) )
+                               .filter( (g) => compare(dyscyplina_kont_czas_v, g.czas) )
+                               .map( (g) => g.plec )))
   }
 )
 viewof dyscyplina_kont_nazwa_zaw = Inputs.select(
   new Set(dyscyplina_kont
-          .filter( (g) => compare(dyscyplina_kont_typ_szk, g.typ_szk) )
+          .filter( (g) => compare(dyscyplina_kont_typ_szk_v, g.typ_szk) )
+          .filter( (g) => compare(dyscyplina_kont_rok_abs_v, g.rok_abs) )
+          .filter( (g) => compare(dyscyplina_kont_szk_specjalna_v, g.szk_specjalna) )
+          .filter( (g) => compare(dyscyplina_kont_plec_v, g.plec) )
+          .filter( (g) => compare(dyscyplina_kont_czas_v, g.czas) )
           .map( (g) => g.nazwa_zaw )),
   {
     label: "Zawód:",
-    value: "Ogółem",
+    value: dyscyplina_kont_nazwa_zaw_v,
     valueof: (v) => v,
     format: (v) => v,
     sort: sort_overall_first,
@@ -1539,12 +1909,45 @@ viewof dyscyplina_kont_czas = Inputs.radio(
           .map( (g) => g.czas )),
   {
     label: "Miesiąc od ukończenia szkoły:",
-    value: d3.min(dyscyplina_kont.map( (g) => g.czas )),
+    value: dyscyplina_kont_czas_v,
     valueof: (v) => v,
     format: (v) => v,
-    sort: sort_numeric
+    sort: sort_numeric,
+    disabled: set_diff(new Set(dyscyplina_kont.map( (g) => g.czas )),
+                       new Set(dyscyplina_kont
+                               .filter( (g) => compare(dyscyplina_kont_typ_szk_v, g.typ_szk) )
+                               .filter( (g) => compare(dyscyplina_kont_rok_abs_v, g.rok_abs) )
+                               .filter( (g) => compare(dyscyplina_kont_szk_specjalna_v, g.szk_specjalna) )
+                               .filter( (g) => compare(dyscyplina_kont_plec_v, g.plec) )
+                               .filter( (g) => compare(dyscyplina_kont_nazwa_zaw_v, g.nazwa_zaw) )
+                               .map( (g) => g.czas )))
   }
 )
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+{
+  if (!input_values_equal(dyscyplina_kont_typ_szk, dyscyplina_kont_typ_szk_v)) {
+    mutable dyscyplina_kont_typ_szk_v = dyscyplina_kont_typ_szk
+  }
+  if (!input_values_equal(dyscyplina_kont_rok_abs, dyscyplina_kont_rok_abs_v)) {
+    mutable dyscyplina_kont_rok_abs_v = dyscyplina_kont_rok_abs
+  }
+  if (!input_values_equal(dyscyplina_kont_szk_specjalna, dyscyplina_kont_szk_specjalna_v)) {
+    mutable dyscyplina_kont_szk_specjalna_v = dyscyplina_kont_szk_specjalna
+  }
+  if (!input_values_equal(dyscyplina_kont_plec, dyscyplina_kont_plec_v)) {
+    mutable dyscyplina_kont_plec_v = dyscyplina_kont_plec
+  }
+  if (!input_values_equal(dyscyplina_kont_nazwa_zaw, dyscyplina_kont_nazwa_zaw_v)) {
+    mutable dyscyplina_kont_nazwa_zaw_v = dyscyplina_kont_nazwa_zaw
+  }
+  if (!input_values_equal(dyscyplina_kont_czas, dyscyplina_kont_czas_v)) {
+    mutable dyscyplina_kont_czas_v = dyscyplina_kont_czas
+  }
+}
 ```
 
 ```{ojs}

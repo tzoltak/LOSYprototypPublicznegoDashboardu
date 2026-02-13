@@ -10,9 +10,54 @@ filtry <- jsonlite::read_json("zmienne-filtrujace.json")
 przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
                                    nazwaJSTMiejscownik, rspoParsJST) {
   filtry <- filtry[!(sapply(filtry, \(f) f$id) %in% w$filtersExclude)]
+  filtry <- lapply(filtry,
+                   function(f, ids) {
+                     if ("disabled" %in% names(f)) {
+                       f$disabled <- f$disabled[unlist(f$disabled) %in% ids]
+                     }
+                     if ("filter" %in% names(f)) {
+                       f$filter <- f$filter[unlist(f$filter) %in% ids]
+                     }
+                     return(f)
+                   },
+                   ids = sapply(filtry, \(f) f$id))
 
   naglowekZakladki <- c(paste0("## ", w$name), "")
   opis <- unlist(lapply(w$description, \(x) c(x, "")))
+  inicjalizacjaWyborow <- c(
+    "```{ojs}",
+    "//| echo: false",
+    "//| output: false",
+    sapply(filtry,
+           function(f, w) {
+             if ("value" %in% names(f)) {
+               if (substr(f$value[1], 1, 1) == "~") {
+                 f$value <- paste0(
+                   f$value[1], "(", w, ".map( (g) => g.", f$id, " ))")
+                 if (substr(f$value[1], 2, 2) == "[") {
+                   f$value <- paste0(f$value, "]")
+                 }
+               }
+               if (substr(f$value[1], 1, 1) == "~") {
+                 f$value <- substr(f$value, 2, nchar(f$value))
+               } else {
+                 f$value <- paste0('"', f$value, '"')
+               }
+             } else {
+               f$value = "null"
+             }
+             paste0("mutable ", w, "_", f$id, "_v = ", f$value)
+           },
+           w = w$id),
+    "```",
+    ""
+  )
+  filtry <- lapply(filtry,
+                   function(f, w) {
+                     f$value = paste0("~", w, "_", f$id, "_v")
+                     return(f)
+                   },
+                   w = w$id)
   filtrowanie <- c(
     "```{ojs}",
     "//| echo: false",
@@ -25,8 +70,7 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
                  c(w,
                    sapply(f$filter,
                           function(ff, w) {
-                            paste0(".filter( (g) => compare(", w, "_", ff,
-                                   ", g.", ff, ") )")
+                            paste0(".filter( (g) => compare(", w, "_", ff, "_v, g.", ff, ") )")
                           },
                           w = w)),
                  collapse = "
@@ -39,14 +83,18 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
                               '"].concat(
           ', dane, ")")
              }
-             if ("value" %in% names(f)) {
-               if (substr(f$value[1], 1, 1) == "~") {
-                 f$value <- paste0(
-                   f$value[1], "(", w, ".map( (g) => g.", f$id, " ))")
-                 if (substr(f$value[1], 2, 2) == "[") {
-                   f$value <- paste0(f$value, "]")
-                 }
-               }
+             if ("disabled" %in% names(f)) {
+               f$disabled <- paste0(c(
+                 paste0("~set_diff(new Set(", w, ".map( (g) => g.", f$id, " )),"),
+                 paste0("                       new Set(", w),
+                 sapply(f$disabled,
+                        \(ff) paste0(
+                          "                               .filter( (g) => compare(",
+                          w, "_", ff, "_v, g.", ff, ") )")),
+                 paste0("                               .map( (g) => g.",
+                        f$id, " )))")
+               ), collapse = "
+")
              }
              inneParametry <-
                setdiff(names(f), c("id", "type", "filter", "values"))
@@ -71,6 +119,23 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
              ))
            },
            w = w$id),
+    "```",
+    ""
+  )
+  synchronizacjaWyborow <- c(
+    "```{ojs}",
+    "//| echo: false",
+    "//| output: false",
+    "{",
+    sapply(filtry,
+           function(f, w) {
+             paste0("  if (!input_values_equal(", w, "_", f$id, ", ",
+                    w, "_", f$id, "_v)) {
+    mutable ", w, "_", f$id, "_v = ", w, "_", f$id, "
+  }")
+           },
+           w = w$id),
+    "}",
     "```",
     ""
   )
@@ -224,7 +289,9 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
 
   return(c(naglowekZakladki,
            opis,
+           inicjalizacjaWyborow,
            filtrowanie,
+           synchronizacjaWyborow,
            wczytywanieDanych,
            przeksztalcanieDanych,
            komunikatyOBrakach,
@@ -239,7 +306,7 @@ przygotuj_kod_strony <- function(jst, filtry, wskazniki, sasiedzi = NULL) {
 
   sciezkaDoZrodla <- paste(rep("../", c(k = 1, w = 2, p = 3)[jst$level]),
                            collapse = "")
-  stopifnot("rok_abs" %in% sapply(filtry, \(x) x$id))
+  stopifnot("rok_abs" %in% sapply(filtry, \(f) f$id))
 
   naglowek <- c(
     "---",
@@ -252,7 +319,7 @@ przygotuj_kod_strony <- function(jst, filtry, wskazniki, sasiedzi = NULL) {
     "import { aq, op } from '@uwdata/arquero'",
     paste0("import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '",
            sciezkaDoZrodla, "resources/constants.js'"),
-    paste0("import { set_diff, sort_overall_first, sort_numeric, compare, download_csv, sequence } from '",
+    paste0("import { set_diff, sort_overall_first, sort_numeric, compare, input_values_equal, download_csv, sequence } from '",
            sciezkaDoZrodla, "resources/functions.js'"),
     "```",
     ""

@@ -25,23 +25,25 @@
 	  "value": "Ogółem",
 	  "valueof": "~(v) => v",
 	  "format": "~(v) => v",
-	  "sort": "~sort_overall_first"
+	  "sort": "~sort_overall_first",
+    "disabled": ["typ_szk", "rok_abs", "plec", "nazwa_zaw", "czas"]
   },
   {
 	  "id": "plec",
-	  "label": "Płeć",
+	  "label": "Płeć:",
 	  "type": "Inputs.radio",
 	  "values": ["Ogółem", "Kobiety", "Mężczyźni"],
 	  "value": "Ogółem",
 	  "valueof": "~(v) => v",
 	  "format": "~(v) => v",
-	  "sort": "~sort_overall_first"
+	  "sort": "~sort_overall_first",
+    "disabled": ["typ_szk", "rok_abs", "szk_specjalna", "nazwa_zaw", "czas"]
   },
   {
 	  "id": "nazwa_zaw",
 	  "label": "Zawód:",
 	  "type": "Inputs.select",
-	  "filter": ["typ_szk"],
+	  "filter": ["typ_szk", "rok_abs", "szk_specjalna", "plec", "czas"],
 	  "value": "Ogółem",
 	  "valueof": "~(v) => v",
 	  "format": "~(v) => v",
@@ -55,6 +57,7 @@
 	  "value": "~d3.min",
 	  "valueof": "~(v) => v",
 	  "format": "~(v) => v",
-	  "sort": "~sort_numeric"
+	  "sort": "~sort_numeric",
+    "disabled": ["typ_szk", "rok_abs", "szk_specjalna", "plec", "nazwa_zaw"]
   }
 ]
