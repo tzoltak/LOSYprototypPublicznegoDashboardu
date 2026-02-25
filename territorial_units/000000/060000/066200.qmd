@@ -5,6 +5,7 @@ format: html
 
 ```{ojs}
 //| echo: false
+//| output: false
 import { aq, op } from '@uwdata/arquero'
 import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '../../../resources/constants.js'
 import { set_diff, sort_overall_first, sort_numeric, compare, input_values_equal, download_csv, sequence } from '../../../resources/functions.js'
@@ -38,6 +39,8 @@ mutable status_czas_v = d3.min(status.map( (g) => g.czas ))
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message status-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof status_typ_szk = Inputs.radio(
   new Set(status
           .map( (g) => g.typ_szk )),
@@ -165,11 +168,20 @@ viewof status_czas = Inputs.radio(
 
 ```{ojs}
 //| echo: false
+//| output: false
 status = await FileAttachment("../../../data/066200-status.json").json()
+{
+  if (status.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.status-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 statusF = status
   .filter( (g) => compare(status_typ_szk, g.typ_szk) )
   .filter( (g) => compare(status_rok_abs, g.rok_abs) )
@@ -364,6 +376,8 @@ mutable bezrobocie_czas_v = d3.min(bezrobocie.map( (g) => g.czas ))
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message bezrobocie-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof bezrobocie_typ_szk = Inputs.radio(
   new Set(bezrobocie
           .map( (g) => g.typ_szk )),
@@ -491,11 +505,20 @@ viewof bezrobocie_czas = Inputs.radio(
 
 ```{ojs}
 //| echo: false
+//| output: false
 bezrobocie = await FileAttachment("../../../data/066200-bezrobocie.json").json()
+{
+  if (bezrobocie.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.bezrobocie-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 bezrobocieF = bezrobocie
   .filter( (g) => compare(bezrobocie_typ_szk, g.typ_szk) )
   .filter( (g) => compare(bezrobocie_rok_abs, g.rok_abs) )
@@ -689,6 +712,8 @@ mutable sr_wynagr_nazwa_zaw_v = "Ogółem"
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message sr_wynagr-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof sr_wynagr_typ_szk = Inputs.radio(
   new Set(sr_wynagr
           .map( (g) => g.typ_szk )),
@@ -791,11 +816,20 @@ viewof sr_wynagr_nazwa_zaw = Inputs.select(
 
 ```{ojs}
 //| echo: false
+//| output: false
 sr_wynagr = await FileAttachment("../../../data/066200-sr_wynagr.json").json()
+{
+  if (sr_wynagr.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.sr_wynagr-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 sr_wynagrF = sr_wynagr
   .filter( (g) => compare(sr_wynagr_typ_szk, g.typ_szk) )
   .filter( (g) => compare(sr_wynagr_rok_abs, g.rok_abs) )
@@ -964,6 +998,8 @@ mutable matura_zdana_nazwa_zaw_v = "Ogółem"
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message matura_zdana-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof matura_zdana_typ_szk = Inputs.radio(
   new Set(matura_zdana
           .map( (g) => g.typ_szk )),
@@ -1066,11 +1102,20 @@ viewof matura_zdana_nazwa_zaw = Inputs.select(
 
 ```{ojs}
 //| echo: false
+//| output: false
 matura_zdana = await FileAttachment("../../../data/066200-matura_zdana.json").json()
+{
+  if (matura_zdana.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.matura_zdana-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 matura_zdanaF = matura_zdana
   .filter( (g) => compare(matura_zdana_typ_szk, g.typ_szk) )
   .filter( (g) => compare(matura_zdana_rok_abs, g.rok_abs) )
@@ -1261,6 +1306,8 @@ mutable dyplom_zaw_nazwa_zaw_v = "Ogółem"
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message dyplom_zaw-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof dyplom_zaw_typ_szk = Inputs.radio(
   new Set(dyplom_zaw
           .map( (g) => g.typ_szk )),
@@ -1363,11 +1410,20 @@ viewof dyplom_zaw_nazwa_zaw = Inputs.select(
 
 ```{ojs}
 //| echo: false
+//| output: false
 dyplom_zaw = await FileAttachment("../../../data/066200-dyplom_zaw.json").json()
+{
+  if (dyplom_zaw.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.dyplom_zaw-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 dyplom_zawF = dyplom_zaw
   .filter( (g) => compare(dyplom_zaw_typ_szk, g.typ_szk) )
   .filter( (g) => compare(dyplom_zaw_rok_abs, g.rok_abs) )
@@ -1562,6 +1618,8 @@ mutable typ_szk_kont_czas_v = d3.min(typ_szk_kont.map( (g) => g.czas ))
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message typ_szk_kont-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof typ_szk_kont_typ_szk = Inputs.radio(
   new Set(typ_szk_kont
           .map( (g) => g.typ_szk )),
@@ -1689,11 +1747,20 @@ viewof typ_szk_kont_czas = Inputs.radio(
 
 ```{ojs}
 //| echo: false
+//| output: false
 typ_szk_kont = await FileAttachment("../../../data/066200-typ_szk_kont.json").json()
+{
+  if (typ_szk_kont.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.typ_szk_kont-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 typ_szk_kontF = typ_szk_kont
   .filter( (g) => compare(typ_szk_kont_typ_szk, g.typ_szk) )
   .filter( (g) => compare(typ_szk_kont_rok_abs, g.rok_abs) )
@@ -1873,6 +1940,8 @@ mutable dyscyplina_kont_czas_v = d3.min(dyscyplina_kont.map( (g) => g.czas ))
 ```{ojs}
 //| echo: false
 //| panel: input
+html`<span class="loading-message dyscyplina_kont-tab">Trwa ładowanie dokumentu...</span>`
+
 viewof dyscyplina_kont_typ_szk = Inputs.radio(
   new Set(dyscyplina_kont
           .map( (g) => g.typ_szk )),
@@ -2000,11 +2069,20 @@ viewof dyscyplina_kont_czas = Inputs.radio(
 
 ```{ojs}
 //| echo: false
+//| output: false
 dyscyplina_kont = await FileAttachment("../../../data/066200-dyscyplina_kont.json").json()
+{
+  if (dyscyplina_kont.length > 0) {
+    d3.selectAll("div.cell-output-display:has(.loading-message)")
+      .filter(":has(.dyscyplina_kont-tab)")
+      .remove()
+  }
+}
 ```
 
 ```{ojs}
 //| echo: false
+//| output: false
 dyscyplina_kontF = dyscyplina_kont
   .filter( (g) => compare(dyscyplina_kont_typ_szk, g.typ_szk) )
   .filter( (g) => compare(dyscyplina_kont_rok_abs, g.rok_abs) )

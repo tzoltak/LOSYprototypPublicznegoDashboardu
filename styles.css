@@ -11,6 +11,11 @@ div.data-alerts p {
   margin: 0;
 }
 
+.loading-message {
+  font-size: large;
+  font-weight: bold;
+}
+
 .btn-quarto {
   color: #ffffff !important;
 }

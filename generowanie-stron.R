@@ -62,6 +62,8 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
     "```{ojs}",
     "//| echo: false",
     "//| panel: input",
+    paste0('html`<span class="loading-message ', w$id, '-tab">Trwa ładowanie dokumentu...</span>`'),
+    "",
     sapply(filtry,
            function(f, w) {
              dane <- w
@@ -142,14 +144,23 @@ przygotuj_kod_zakladki <- function(w, filtry, sciezkaDoZrodla, teryt, nazwaJST,
   wczytywanieDanych <- c(
     "```{ojs}",
     "//| echo: false",
+    "//| output: false",
     paste0(w$id, ' = await FileAttachment("', sciezkaDoZrodla,
            'data/', teryt, '-', w$id, '.json").json()'),
+    "{",
+    paste0("  if (", w$id, ".length > 0) {"),
+    '    d3.selectAll("div.cell-output-display:has(.loading-message)")',
+    paste0('      .filter(":has(.', w$id, '-tab)")'),
+    "      .remove()",
+    "  }",
+    "}",
     "```",
     ""
   )
   przeksztalcanieDanych <- c(
     "```{ojs}",
     "//| echo: false",
+    "//| output: false",
     paste0(w$id, "F = ", w$id),
     sapply(filtry,
            function(f) {
@@ -316,6 +327,7 @@ przygotuj_kod_strony <- function(jst, filtry, wskazniki, sasiedzi = NULL) {
     "",
     "```{ojs}",
     "//| echo: false",
+    "//| output: false",
     "import { aq, op } from '@uwdata/arquero'",
     paste0("import { alertNoData, labels, pallets, palletsFg, rspoSchoolTypes } from '",
            sciezkaDoZrodla, "resources/constants.js'"),
